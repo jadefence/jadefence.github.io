@@ -324,6 +324,7 @@ ul.nostyle i {
 }
 #features {
   padding: 100px 0;
+  background: #f5f5f5;
 }
 #features .media.service-box:first-child {
   margin-top: 80px;
@@ -372,7 +373,7 @@ ul.nostyle i {
 }
 #portfolio {
   padding: 100px 0;
-  background: #f5f5f5;
+  /*background: #f5f5f5;*/
 }
 #portfolio .portfolio-filter {
   list-style: none;
