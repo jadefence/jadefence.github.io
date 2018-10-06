@@ -1,14 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>朱山石刻文化园</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+  <style>
+    html,
+    body,
+    #container {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <title>朱山石刻文化园</title>
 </head>
+
 <body>
-    welcome！
+  <div id="container"></div>
+  <script src="https://webapi.amap.com/maps?v=1.4.10&key=您申请的key值"></script>
+  <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+  <script>
+    var map = map = new AMap.Map('container', {
+        resizeEnable: true, 
+        zoom: 15, //初始地图级别
+        center: [114.434182,36.787334], 
+    });
+    
+    map.on("complete", function(){
+       log.success("地图加载完成！");  
+    });
+  </script>
 </body>
+
 </html>
