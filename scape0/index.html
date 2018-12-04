@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+  <style>
+    html,
+    body,
+    #container {
+      width: 100%;
+      height: 100%;
+    }
+    audio{
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      z-index: 1111;
+      display: none;
+    }
+  </style>
+  <title>朱山石刻文化园</title>
+</head>
+
+<body>
+  <div id="container"></div>
+  <audio id="video1" src="mp3/result.mp3" controls="controls"></audio>
+
+
+  <script src="https://webapi.amap.com/maps?v=1.4.10&key=您申请的key值"></script>
+  <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+  <script src="js/jquery.js"></script>
+  <script>
+    
+
+    var map = map = new AMap.Map('container', {
+        resizeEnable: true, 
+        zoom: 15, //初始地图级别
+        center: [114.434182,36.787334], 
+    }); 
+    var startIcon = new AMap.Icon({ 
+        size: new AMap.Size(50, 50), 
+        image: 'img/ooopic_1538839523.png', 
+        imageSize: new AMap.Size(50, 50), 
+        imageOffset: new AMap.Pixel(-9, -3)
+    });
+
+    map.on("complete", function(){ 
+      $(".amap-logo").hide();
+
+       var point = new AMap.Marker({
+            map: map,
+            position: [114.435182,36.789334],
+            icon: startIcon, 
+        });
+        var myVideo = document.getElementById("video1");
+        point.on('click',function(e){ 
+          $("#video1").show();
+          myVideo.style.display ="block";
+          //myVideo.load()
+          myVideo.src = "mp3/result.mp3"; 
+          myVideo.play();
+        })
+    });
+  </script>
+</body>
+
+</html>

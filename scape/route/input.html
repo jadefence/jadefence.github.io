@@ -1,0 +1,60 @@
+﻿<div id="sear_nav_1" style="min-height: 400px;">
+    <header class="hd_nav">
+        <a href="javascript:void(0)" class="s_map icon-back" id="close_nav_1"></a>
+        <h3 class="tit">选择起始点</h3>
+    </header>
+    <div class="sear_suggestion" id="sear_suggestion">
+        <div class="searField">
+            <div class="searIpt">
+                <input type="text" placeholder="请输入商户名称" id="rutIptTxt">
+            </div>
+        </div>
+        <div class="posEnter">
+            <!--<a class="siteicon" id="lk_curLoc"><span>我的位置</span></a>-->
+            <a class="sitesele" id="lk_mapPick" data-type="a" data-href="" data-push="0"><span>地图选点</span></a>
+        </div>
+        <div class="sear_sugg_list" style="top: 115px; display: none;"><ul>
+            <li data-id="71830" data-name="梧桐" data-fid="3" data-x="0" data-y="0"><i class="icon_sp1 date-icon"></i><span><em>梧桐</em>中式快餐  L3</span></li><li data-id="71829" data-name="匠艺,匠艺钟表维修中心" data-fid="3" data-x="0" data-y="0"><i class="icon_sp1 date-icon"></i><span><em>匠艺,匠艺钟表维修中心</em>维修/加工  L3</span></li><li data-id="71811" data-name="胡同烧肉" data-fid="1" data-x="0" data-y="0"><i class="icon_sp1 date-icon"></i><span><em>胡同烧肉</em>烧烤  L2</span></li><li data-id="71810" data-name="老铺黄金" data-fid="-1" data-x="0" data-y="0"><i class="icon_sp1 date-icon"></i><span><em>老铺黄金</em>珠宝/黄金  B1</span></li><li data-id="67962" data-name=" 万宁" data-fid="-1" data-x="0" data-y="0"><i class="icon_sp1 date-icon"></i><span><em> 万宁</em>个人护理/药品  B1</span></li><li data-id="67961" data-name="科丽妍肌肌肤管理中心" data-fid="3" data-x="0" data-y="0"><i class="icon_sp1 date-icon"></i><span><em>科丽妍肌肌肤管理中心</em>个人护理/药品  L3</span></li></ul></div>
+    </div>
+</div>
+
+<script> 
+    //输入框焦点
+    $("#rutIptTxt").bind("focus", function () {
+        //$(".mapInfor").hide();
+        //$("#publicList").show();
+    })
+    //输入框变化
+    $("#rutIptTxt").bind("input propertychange", function (e) {
+        var txt = $("#rutIptTxt").val();
+        var str = sarchShop(txt);
+        $("#routeInput .sear_sugg_list ul").html(str);
+        $("#routeInput .sear_sugg_list").show();
+
+        $(".sear_sugg_list ul li").bind("click", function (e) {
+            var id = e.currentTarget.dataset.id;
+            var name = e.currentTarget.dataset.name;
+
+            $("#rutIptTxt").val(name);
+            $("#" + AppData.cur.wait).val(name);
+
+            for (var i = 0; i < AppData.shopList.length; i++) {
+                var shop = AppData.shopList[i];
+                if (shop.id == id) {
+                    if (AppData.cur.wait == "iptStart") AppData.cur.start = shop;
+                    else AppData.cur.target = shop;
+                }
+            }
+            resetBtn();
+            $("#routeInput").html("");
+            $("#routeInput").hide();
+            
+        })
+    })
+
+    $("#lk_mapPick").bind("click", function () {
+        $("#locateSelect").show();
+        $("#locateSelect").load("route/select.html");
+    })
+
+</script>

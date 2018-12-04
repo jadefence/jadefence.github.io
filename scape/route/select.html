@@ -1,0 +1,60 @@
+﻿
+<div class="sear_f_box">
+    <div class="sear_con">
+        <i class="s_map icon-back" data-type="back"></i>
+        <div class="tit">
+            <h2>选择起始点</h2>
+        </div>
+    </div>
+    <div class="f_num" id="changeFloor1">L1</div>
+</div>
+
+<div id="mapSelect"></div>
+<div id="floorPanel1"></div>
+<script>
+    loadExtentFile("assets/js/gis_select.js", "js");
+
+    $("#changeFloor1").bind("click", function () {
+        $('#floorPanel1').mobiscroll('show').mobiscroll('setVal', 1)
+    })
+     
+    function createFloor(fid) {
+        var data = AppData.floorData;
+        var str = "";
+        for (var i = 0; i < data.length; i++) {
+            var d = data[i], id = d.ID;
+            var tag = d.tag != '' ? ' (' + d.tag + ')' : '';
+            if (fid == id) {
+                str += '<option value=' + id + ' selected>' + d.name + tag + '</option>';
+            } else {
+                str += '<option value=' + id + '>' + d.name + tag + '</option>';
+            }
+        }
+        $('#floorPanel1').html(str);
+        $('#floorPanel1').mobiscroll().select({
+            theme: 'mobiscroll',
+            lang: 'zh',
+            display: 'bottom',
+            showInput: false,
+            onSelect: function (v, obj) {
+                //debugger;
+                //F-切换楼层
+                var f = obj._tempValue;
+                if (f != AppData.cur.floor1) {
+                    gis1.switchMap(f);
+                    gis1.addShopLayer();
+                    AppData.cur.floor1 = f;
+                    $("#changeFloor1").html("L" + f);
+                    return;
+                    mapShow.closeAlonePos();
+                    _this.fnChangeFloor(parseInt(obj._tempValue));
+                }
+            }
+        });
+    }
+    
+    AppData.cur.floor1 = 1;
+    createFloor(AppData.cur.floor1);
+
+</script>
+

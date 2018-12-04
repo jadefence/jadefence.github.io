@@ -1,0 +1,133 @@
+/*万象城首页*/
+.wrap-mixc .index-top .swiper-pagination-bullet { background: transparent; border: 1px #fff solid; }
+.wrap-mixc .index-top .swiper-pagination-bullet-active { background-color: #fff !important; }
+.wrap-mixc .circle-icon {background-image: url(../images/index/mixcindex1.png); background-size: 40px 355px; }
+
+/*公共部分*/
+.bgred{background-color:#eba000!important;}
+.hd_nav{background-color:#fcfcfc;border-bottom-color:#705f57;}
+.attend-btn button, .attend-btn a{background-color:#705f57;color:#fff;}
+.sales-deploy .item a.cur, .sales-deploy .item a:active,.nav-tab{border-color:#705f57;}
+.nav-tab a,.nbar_tit a:active,.s-con .list .time,.order-count p span,.st_info .pri_box p i,.st_info .pri_box p span,.total-count .t0 span,.sales-con .priceall span,.price-num,
+.coupon-pgs .bills .endtime,.regi-memo a,.verify-memo a,.order-list .cur,.panicbox .price em,.mer-shop .score,.ZebraDialog .ZebraDialog_Buttons .ZebraDialog_Button_0,.marked-word em,.p_comment .star_score .num,
+.forget-memo a,.order-hd .memo .e2,.order-hd .memo .e1,.notuse,.attend-btn .refund,.overlast em,.price-hd2 .seller .icon-suona:before{color:#eba000;}
+.nav-tab a:active,.s-tab a.cur, .s-tab a:active,.s-con .list .cir-point,
+.sure-btn,.carget,.city-choose .cont a.cur, .city-choose .cont a:active,.conall .s-btn,.discount,.big-button,.panic-btn,.save-btn,.sml-button{background-color:#705f57;}
+.nav-tab a.cur{background-color:#705f57;}
+.nav-tab,.nav-tab a,.s-tab a,.nbar_tit a{color:#705f57;}
+.f-red{color:#eba000!important;}
+.mark-icon{background-position:0 -65px;}
+.call-icon{background-position:-105px -100px;background-size:300px auto!important;}
+.s-icon9{width:24px;height:24px;vertical-align:middle;margin-right:10px;background-position:-29px -180px;}
+.icon-sinradiocur:before,.sradiobox span.checked .icon-sinradio:before{color:#705f57!important;}  /*新单选按钮*/
+.icon-multipleradio:before,.mulradiobox span.checked i:before{color:#705f57!important;}  /*新多选按钮*/
+
+/*公共图标*/
+.icon_sp1{background-image:url(../images/images-mixc/sp-icons.png);background-size:250px 250px;}
+.icon_hd1{background-image:url(../images/images-mixc/hd-icons.png);background-size:25px 350px;}
+.icon-s-mine:active:before{color:#eba000;}
+.icon-back_previous:active:before{color:#eba000;}
+.icon-s-show:active:before{color:#eba000;}
+.searsub-list .cur,.show-box .list-new .cur,.set-pg .t3 span.cur, .set-pg .t3 span:active, .getcode .mer-queue li.cur{background-image:url(../images/images-mixc/check-icon.png);}
+.level-star{background-image:url(../images/images-mixc/stars.png);}
+.sp-icon120{width:20px;background-position:-60px 2px;}      /*个护化妆*/
+.choose-in,.choose-in-cur{top:30%;background:url(../images/images-mixc/newentry.png) no-repeat -30px 0;background-size:58px auto;}
+.choose-in-cur{background-position:-30px -30px;}
+.panel_list1 .cur{background:url(../images/images-mixc/check-icon.png) no-repeat 5px center;background-size:18px 18px;background-color:#f6f6f6;}
+.ss-icon7{background-position:-66px -128px;}/*直达电梯红*/
+.ss-icon8{background-position:-70px -150px;}/*扶梯红*/
+.ss-icon9{background-position:-68px -173px;}/*步梯红*/
+.checked-in-cur{background:url(../images/images-mixc/check-icon.png) no-repeat 0 center;background-size:18px 19px;}
+.icon_map{background-image:url(../images/images-mixc/map_hd.png);background-size:30px 750px;}
+
+/*商户列表*/
+.marked-word span em,.mer-item .item-con .score, .mer-infor .score, .film-name .score,.reserve-btn,.mine-hd a em,.mine-kinds .count .t2,.pro-kinds a.cur,
+.pro-kinds a:active,.p-item .con em,.acti-pg .acti-hd dt,.get-verify,price-num,.pchase-bg .p-price .t0 em,.pslip em{color:#eba000!important;}
+.nav-sear .cur{color:#333!important;}
+.mix-attend{background-color:#e6e6e6;margin-top:0;padding-top:10px;}
+
+/*弹出*/
+.searbox_mask{top:82px;}
+
+/*电影*/
+.book-btn a{background-color:#eba000;color:#fff;}
+.st_info .pri_box .st_btn{background-color:#eba000;}
+.st_info .pri_box .st_btn_disabled{background:#d9d9d9;}
+.st_info .result li{color:#eba000;}
+.timeinfor .fir{color:#eba000}
+.splitbg1{background-color:#eba000;}
+
+/*停车场*/
+.parktop10{padding-top:10px!important;}
+.attend-btn a.mei-bg,.searField .sear_btn{border:0;background-color:#eba000;color:#fff;}
+.park-tabs a{background-color:#eba000;}
+.park-tab-b em{color:#eba000;}
+.park-tab-b input{background-color:#eba000;}
+.cluebox .lookat{color:#eba000;}
+.carpay{position:relative;margin:0 10px;}
+.carpay .payinput{width:100%;border-radius:3px;-webkit-appearance:none;font-size:14px;border:1px #ccc solid;height:36px;padding:10px 85px 10px 10px;}
+.carpay .btn{position:absolute;right:0;top:0;background:#eba000;height:36px;font-size:14px;color:#fff;border-radius:0 3px 3px 0;padding:0 15px;}
+/*特卖*/
+.tabs-btn a{background-color:#eba000;}
+
+/*登录注册*/
+.order-list .cur .num{background-color:#eba000;border-color:#eba000;}
+
+/*评论*/
+.p_comment .ratings li{background:url(../images/images-mixc/star-mixc.png) no-repeat -22px 0;background-size:44px auto;}
+
+/*地图*/
+.mapHeader{border-bottom-color:#eba000;}
+.mapHeader .p_back,.filter_cont a,.mbody .g_path span,.mbody .g_follow span,.rebate span{background-image:url(../images/images-mixc/map_icon1.png?t=12);background-size:27px 500px;background-repeat:no-repeat}
+.mapHeader .p_back{background-position:12px 7px;}
+.filter_cont .floor, .filter_cont .round_hd{color:#eba000;}
+.tab_hd_path .cur{color:#eba000;}
+.select_pos .item .sele-inpu{border-color:#eba000;}
+/*活动*/
+.acti-bd a{color:#eba000}
+
+
+/*footer */
+/* add by huangjia 2014.11.2*/
+.bgHs,.dwLoginUl{background: #f6f6f6;padding: 0px 10px;}
+.dddborderB{border-top:1px solid #ddd;}
+.mBxJyCm{display: -webkit-box;display: -moz-box;display: -o-box;display: box;-webkit-box-pack: justify;-moz-box-pack: justify;-o-box-pack: justify;box-pack: justify;-webkit-box-align: center;-moz-box-align: center;-o-box-align: center;box-align: center;}
+.mBxCm{display: -webkit-box;display: -moz-box;display: -o-box;display: box;-webkit-box-pack: center;-moz-box-pack: center;-o-box-pack: center;box-pack: center;-webkit-box-align: center;-moz-box-align: center;-o-box-align: center;box-align: center;}
+.dpdt10{padding:10px 0}
+.colo666,.gouwu li:nth-child(2) {color: #666;}
+.colo333 {color: #333;}
+#footer a:link,#footer a:visited,#footer:hover,#footer:active{color:#666;}
+
+/*团购*/
+.teamlist .priceb em{color:#eba000}
+
+/*消费记录*/
+.icon-calendar:before{color:#eba000!important;}
+
+/*完善资料*/
+.selectpop .tit .close{color:#eba000;}
+.selectpop .hbylist li.cur .icon-sinradio:before{color:#eba000!important;}
+
+/*付款成功*/
+.backstep li.cur i{background-color:#eba000;}
+.backstep li.cur em{color:#eba000;}
+
+/*我的*/
+.mine-hd .newtip{background-color:#eba000;}
+
+/*会员激活*/
+.openvipbg{background: #fff;}
+.openvipbg .content .openvip,.openvipbg .openrule .hrt-rule-pic{position: relative;}
+.openvipbg .openrule .hrt-rule-pic{margin:8px 0;}
+.openvipbg .openrule .rule-content .hrt-rule-msg{text-align: center;}
+.openvipbg .content .openrule h3{padding-left: 12px;height:45px;line-height: 45px;font-size:18px;color: #333;background: #fff;border-bottom: 1px solid #E3E3E7;}
+.openvipbg .content .openrule .rule-content{background:#fff;width:100%;font-size: 15px;color: #999;padding:5px 15px 75px;line-height: 1.6;}
+.openvipbg .content .openrule .rule-content .rule-list{margin-top:15px;}
+.openvipbg .content .openrule .rule-content p.add_bold{color:#000;}
+.openvipbg .link-btn,.openvipbg .link-btn2 {text-align:center;width: 100%;position: fixed;left: 0;bottom: 0;padding:12px 20px;background: #fff;border-top: 1px solid #E3E3E7;}
+.openvipbg .link-btn>a{display:block;width:47.75%;height: 44px;line-height: 44px;border-radius: 5px;text-align: center;font-size: 17px;float: left;}
+.openvipbg .link-btn .link1{background:#DF2D71;color: #fff;margin-right:4.5%}
+.openvipbg .link-btn .link2{border: 1px solid #DF2D71;color: #DF2D71;}
+.openvipbg .link-btn2 .link{display:inline-block;background:#DF2D71;color: #fff;width:100%;height: 44px;line-height: 44px;border-radius: 5px;font-size: 17px;text-align: center;}
+
+

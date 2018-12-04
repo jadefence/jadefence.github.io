@@ -1,0 +1,47 @@
+﻿
+<div id="sear_nav_0">
+    <header class="hd_nav">
+        <div class="s_map icon-back" data-type="back"></div>
+        <h3 class="tit">路线规划</h3>
+    </header>
+    <div class="routeway">
+        <div class="switchbox" id="switchBox"><i class="s_map icon-switch"></i></div>
+        <div class="locations">
+            <div class="row"><i class="route-start"></i>
+            <input class="gm-input ellipsis" id="iptStart" value="" data-x="335.8294372558594" data-y="114.95036315917969" data-fid="5" placeholder="请输入起点" readonly=""><div class="suggestion-del" data-id="iptStart" style="visibility: visible;"></div></div>
+            <div class="row"><i class="route-end"></i>
+            <input class="gm-input ellipsis" id="iptEnd" value="" data-x="398.9771728515625" data-y="136.07699584960938" data-fid="5" placeholder="请输入终点" readonly=""><div class="suggestion-del" data-id="iptEnd" style="visibility: visible;"></div></div>
+        </div>
+    </div>
+    <div class="ui-btn"><button id="readyNav" class="btn-disabled" disabled="disabled">开始路线规划</button></div>
+</div>
+
+<script>
+    //AppData.cur.start = AppData.cur.shop;
+    $("#iptEnd").val(AppData.cur.target.name);
+    resetBtn();
+
+    $(".gm-input").bind("click", function (e) {
+        AppData.cur.wait = e.currentTarget.id;
+        $("#routeInput").show();
+        $("#routeInput").load("route/input.html");
+    })
+
+    $("#readyNav").bind("click", function () {
+        $("#routeStart").html("");
+        $("#routeStart").hide();
+
+        gis.routeAnalysis();
+    })
+
+    function resetBtn() {
+        if ($("#iptStart").val() && $("#iptEnd").val()) {
+            $("#readyNav").removeClass("btn-disabled");
+            $('#readyNav').removeAttr("disabled");
+        }
+        else {
+            $("#readyNav").addClass("btn-disabled");
+            $('#readyNav').attr("disabled", "disabled");
+        }
+    }
+</script>

@@ -1,0 +1,115 @@
+﻿
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>地图</title>
+    <link rel="stylesheet" href="/assets/css/zebra_dialog.css">
+    <link rel="stylesheet" href="/assets/css/mc_map.css?t=3">
+    <script>
+        var floorData = JSON.parse('[{"ID":-3,"name":"B3","fid":0,"f":"L1","tag":"停车场","IsHavePark":true,"IsHaveShop":false},{"ID":-2,"name":"B2","fid":0,"f":"L1","tag":"停车场","IsHavePark":true,"IsHaveShop":false},{"ID":-1,"name":"B1","fid":0,"f":"L1","tag":"","IsHavePark":true,"IsHaveShop":true},{"ID":0,"name":"L1","fid":0,"f":"L1","tag":"","IsHavePark":false,"IsHaveShop":true},{"ID":1,"name":"L2","fid":0,"f":"L1","tag":"","IsHavePark":true,"IsHaveShop":true},{"ID":2,"name":"2A","fid":0,"f":"L1","tag":"","IsHavePark":true,"IsHaveShop":false},{"ID":3,"name":"L3","fid":0,"f":"L1","tag":"","IsHavePark":true,"IsHaveShop":true},{"ID":4,"name":"3A","fid":0,"f":"L1","tag":"","IsHavePark":true,"IsHaveShop":false},{"ID":5,"name":"L4","fid":0,"f":"L1","tag":"","IsHavePark":false,"IsHaveShop":true},{"ID":6,"name":"L5","fid":0,"f":"L1","tag":"","IsHavePark":false,"IsHaveShop":true}]');
+        var mallId = _mid = '55';
+        var fid = '0';
+        var useMallcooNav = true;
+        if ('False' != 'True') {
+            var useMallcooNav = false;
+        }
+        var clientMac = "";
+        var _sec = "";
+        var _appkey = "";
+    </script>
+
+
+</head>
+<body class="noNavi">
+    <div class="wrap"></div>
+    <div class="svg_frame" id="svgFrame" style="display:none">
+        <div id="svgBox" class="svg_box" style="visibility:hidden"></div>
+        <div id="g_txt" class="gTxt"></div>
+    </div>
+    <div id="followBox" class="follow_box" style="display:none"><img src="/assets/images/maps/followicon.png" width="100%"></div>
+    <div class="cautionbox loadMap" id="load_map" style="display:none"><img src="../assets/images/maps/loading.gif" class="loading"></div>
+    <div class="cautionbox loadNav" style="display:none" id="load_nav">
+        <img src="../assets/images/maps/loading.gif" class="loading">
+        <p>正在进行路径规划<br />请稍等...</p>
+    </div>
+    <script src="/assets/js/plugins/zepto/zepto.min.js"></script>
+    <script src="/assets/js/plugins/zepto/fx.js"></script>
+    <script src="/assets/js/plugins/zepto/touch.js"></script>
+    <script src="/assets/js/plugins/zepto/data.js"></script>
+    <script src="/assets/js/App.js"></script>
+    <script src="/assets_v2/js/plugins/md5-js?v=DyGZbX7iBjkQzhONyBmT-Jd0V1f3XzpMlUO0smOG8_s1"></script>
+
+    <script src="/assets_v2/js/plugins/navigation-js?v=xEjP6T9yaNlmJ4yQ-h-KIcLPFF2SSlXSmvcjpmStb3I1"></script>
+
+    <script src="/assets/js/plugins/zebra_dialog.src.js"></script>
+    <script src="/assets/js/plugins/hammer.min.js"></script>
+    <script src="/assets/js/plugins/swiper.jquery.min.js"></script>
+    <link href="/assets/js/plugins/mobiscroll/mobiscroll.frame.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/js/plugins/mobiscroll/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
+    <script src="/assets/js/plugins/mobiscroll/mobiscroll.zepto.js"></script>
+    <script src="/assets/js/plugins/mobiscroll/mobiscroll.core.js"></script>
+    <script src="/assets/js/plugins/mobiscroll/mobiscroll.frame.js"></script>
+    <script src="/assets/js/plugins/mobiscroll/mobiscroll.scroller.js"></script>
+    <script src="/assets/js/plugins/mobiscroll/mobiscroll.select.js"></script>
+    <script src="/assets/js/plugins/mobiscroll/mobiscroll.i18n.zh.js"></script>
+    <!-- 埋点 -->
+    <script src="/assets_v2/js/common.js"></script>
+    <script src="/assets/js/lapp.js"></script>
+    <script>
+        var tParams = {};
+        var IsProduction = 'True';
+        tParams.referrerUrl = "";
+        tParams.url = "wsk_lapp/shop/map_p0?_mid=55";
+        tParams._at = "39";
+        tParams.mid = "55";
+        tParams.sid = "";
+        tParams.csrc = "3";
+        tParams.dsSrc = "3";
+        tParams.uid = "";
+        tParams.api = "http://track.mallcoo.cn";
+        tParams.browser = "Chrome";
+        tParams._r = (typeof _r != "undefined" && _r != null) ? _r : "";
+        tParams._rt = (typeof _rt != "undefined" && _rt != null) ? _rt : "";
+    </script>
+    <script src="/assets/js/common/statistics.js"></script>
+
+
+
+
+    <script>
+        var ip = GetQueryString('ip');
+        if (ip != null) {
+            var _navUrl = 'http://' + ip + ':8998/App/GetMCAppInfo';
+        } else {
+            var _navUrl = "";
+        }
+        function GetQueryString(name) {
+            var reg = new RegExp("(?:^|&)" + name + "=([^&]*)(?:&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[1]);
+            return null;
+        }
+    </script>
+
+    <script type="text/javascript">
+            $(document).ready(startapp.init);
+    </script>
+
+
+    <script>
+        var isFromMp = 'False'; //是否在微信中
+        var noJsSDK = 'False'; //是否不启用JsSDK
+        var isMpLoginAble = 'True'; //是否获取openid
+        var isSupportPay = "True" == "False" ? 0 : 1;
+        var resEnv = '//res.mallcoo.net';
+    </script>
+    <script src="/assets/js/jssdk/mp-js?v=xqHSHJC-iKL9zhHSQTUKYfzQ_KujMmpr2wD3rH4tZe41"></script>
+
+    <script src="//res.mallcoo.net/map/v1/main.js"></script>
+</body>
+</html>

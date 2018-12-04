@@ -1,0 +1,392 @@
+﻿
+<!DOCTYPE html>
+<html class="">
+<head>
+    <script>
+        var _mid='55';
+    </script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="description" content="mallcoo light app" />
+    <title>深圳华润万象会</title>
+
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="full-screen" content="yes">
+
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://i1.mallcoo.cn/mc/d352e804-912e-4055-b168-e384960d3bcc_114x114_2_0_0.png">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="http://i1.mallcoo.cn/mc/d352e804-912e-4055-b168-e384960d3bcc_120x120_2_0_0.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="http://i1.mallcoo.cn/mc/d352e804-912e-4055-b168-e384960d3bcc_57x57_2_0_0.png">
+    <link rel="icon" href="http://i1.mallcoo.cn/mc/d352e804-912e-4055-b168-e384960d3bcc_120x120_2_0_0.png" type="image/x-icon">
+    <link href="assets/css/lapp_v2.css" rel="stylesheet" />
+
+
+    <link href="assets/css/mc_food.css" rel="stylesheet" />
+    <style>
+        .mer-pay [class^="icon-"] {
+            display: inline-block;
+        }
+    </style>
+
+    <script src="assets/js/common/windowresize.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/basev2_mixc.css?v=3" />
+
+
+</head>
+<body class="bodyClass">
+
+
+
+    <div class="wrap">
+        <input id="MallID" type="hidden" value="55" />
+        <input id="MallName" type="hidden" value="深圳华润万象会" />
+        <input id="ShopID" type="hidden" value="71829" />
+        <input id="ShopName" type="hidden" value="匠艺,匠艺钟表维修中心" />
+
+
+        <header class="hd_nav">
+            <a id="navBack" onclick="closeDeatil()" href="javascript:void(0);" class="icon-back_previous"></a>
+
+            <a class="icon-s-show" href="javascript:void(0)" id="showBox_btn"></a>
+            <h3 class="tit">商户详情</h3>
+        </header>
+
+
+        <div class="all-scroll">
+            <div class="shop-new">
+                <div class="topimg"><img src="http://i1.mallcoo.cn/mc/c01abdab-3585-444c-90a1-715e61cad4b4_640x320_1_0_0.png" width="100%" /></div>
+                <div class="shopcon">
+                    <div class="pic"><img src="http://i1.mallcoo.cn/mc/55yd7e37-1d7b-4dbb-98c5-5d25ba590259_180x180_1_0_0.jpg" width="90" height="90" /></div>
+                    <div class="cardsale">
+                    </div>
+                    <div class="title">
+                        <h3>匠艺,匠艺钟表维修中心</h3>
+                        <i class="icon_oth1 oth-icon1 " id="iconFavorite"></i><!--选中状态加cur-->
+                    </div>
+                </div>
+                <div class="shopstate">
+                    <div class="section">喜欢：<em>0</em><i class="icon-reallove"></i></div>
+                </div>
+            </div>
+            <div class="mer-infor">
+                <div class="mer-conshow">
+                    <div class="mer-clip mart10">
+                        <ul class="mer-pay clearfixed">
+
+                            <li><a href="tel:0755-82332432"><i class="icon-group-tele"></i>0755-82332432<i class="icon-arrow-r"></i></a></li>
+
+                            <li>
+                                <a href="/Shop/map_p0?_mid=55#p=map_p1&mode=shop&fid=3&searchType=3&searchVal=71829">
+                                    <i class="icon-locate-full"></i><label>L3/</label>N311<i class="icon-arrow-r"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--新品展示-->
+                    <!--活动、促销、团购-->
+                    <div class="mer-clip" id="divActivity">
+
+                    </div>
+                    <!-- 标签 -->
+                    <!-- 品牌故事 -->
+                    <div class="mer-clip mart10">
+                        <div class="snew-tit snew-tit4"><span>品牌故事</span></div>
+                        <div class="mer-intro">
+                            <p>本店依托各品牌的技术服务支持，坚持以优质的服务水准来接待每一位客人，对手表的机芯清洗和测试，防水修复和测试，均按照瑞士厂家的严格标准来修理每一只客人交来的手表。</p>
+                            <div class="arrow-auto"><i class="icon-arrow-b"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- 展开框 -->
+
+
+
+
+
+    <input type="hidden" value="71829" id="navShopId" />
+    <!--展开层1-->
+    <div class="showbox_mask" style=""></div>
+    <div class="show-box" style="" id="commShowBox">
+        <i class="icon_sp1 up-arrow"></i>
+        <div class="list clearfixed">
+            <div class="item"><a href="/home/index"><i class="icon_sp1 sp-icon1"></i><br /><span>主页</span></a></div>                                <div class="item"><a href="javascript:;" id="share"><i class="icon_sp1 sp-icon4"></i><br /><span>分享</span></a></div>        <div class="item"><a href="/user/usercenter"><i class="icon_sp1 sp-icon3"></i><br /><span>我的</span></a></div>                            <div class="item"><a href="javascript:;" id="likeId"><i class="icon_sp1 sp-icon6"></i><br /><span>喜欢</span></a></div>
+            <input type="hidden" id="likeStatus" value="1" />
+            <div class="item divHouse" id="Favorite"><a href="javascript:;"><i class="icon_sp1 sp-icon13"></i><br /><span>收藏</span></a></div>
+            <input type="hidden" value="1" id="isHavefavorited" />
+        </div>
+    </div>
+
+    <!-- 分享到 -->
+
+
+    <div id="sharebox" style="display:none;">
+        <div class="sharebox">
+            <h5>分享到：</h5>
+            <ul class="clearfixed">
+                <li><a class="item sinat" title="分享到新浪微博" target="_blank" href="javascript: " onclick="mallcooShare('sina',{&quot;wxdesc&quot;:null,&quot;sr&quot;:null,&quot;tr&quot;:null,&quot;wr&quot;:null,&quot;wu&quot;:null,&quot;Img&quot;:null,&quot;Title&quot;:null,&quot;apu&quot;:null,&quot;p&quot;:&quot;https://i1.mallcoo.cn/mc/35cab87c-dd16-4cca-8890-1d3f12ccd7f8_100x100_1_0_0.jpg&quot;,&quot;t&quot;:&quot;匠艺,匠艺钟表维修中心&quot;,&quot;url&quot;:&quot;http://lapp.mallcoo.cn/common/share?_mid=55&amp;t=1&amp;rid=71829&amp;sid=0&quot;,&quot;c&quot;:&quot;本店依托各品牌的技术服务支持，坚持以优质的服务水准来接待每一位客人，对手表的机芯清洗和测试，防水修复和测试，均按照瑞士厂家的严格标准来修理每一只客人交来的手表。&quot;})"></a><h6>新浪微博</h6></li>
+                <li><a class="item qqzone" title="分享到QQ空间" target="_blank" href="javascript: " onclick="mallcooShare('qqzone',{&quot;wxdesc&quot;:null,&quot;sr&quot;:null,&quot;tr&quot;:null,&quot;wr&quot;:null,&quot;wu&quot;:null,&quot;Img&quot;:null,&quot;Title&quot;:null,&quot;apu&quot;:null,&quot;p&quot;:&quot;https://i1.mallcoo.cn/mc/35cab87c-dd16-4cca-8890-1d3f12ccd7f8_100x100_1_0_0.jpg&quot;,&quot;t&quot;:&quot;匠艺,匠艺钟表维修中心&quot;,&quot;url&quot;:&quot;http://lapp.mallcoo.cn/common/share?_mid=55&amp;t=1&amp;rid=71829&amp;sid=0&quot;,&quot;c&quot;:&quot;本店依托各品牌的技术服务支持，坚持以优质的服务水准来接待每一位客人，对手表的机芯清洗和测试，防水修复和测试，均按照瑞士厂家的严格标准来修理每一只客人交来的手表。&quot;})"></a><h6>QQ空间</h6></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <script>
+    // 分享赠送积分
+    function share(url, src) {
+        // 分享类型
+        var t = 0;
+        // 相关id
+        var id;
+
+
+        // 1.判断来源
+        if (src.toLowerCase().indexOf("activity") != -1)// 活动
+        {
+            id = getQueryStringByName("pid", src);
+            t = 5;
+        }
+        else if (src.toLowerCase().indexOf("promotion") != -1)// 优惠
+        {
+            id = getQueryStringByName("promtionId", src);
+            t = 6;
+        }
+        else if (src.toLowerCase().indexOf("movie") != -1)// 电影
+        {
+            t = 7;
+        }
+        else if (src.toLowerCase().indexOf("mallcard") != -1 || src.toLowerCase().indexOf("v2/point") != -1)// 礼品
+        {
+            t = 11;
+        }
+        else if (src.toLowerCase().indexOf("shop") != -1 || src.toLowerCase().indexOf("food") != -1 || src.toLowerCase().indexOf("food_v2") != -1)// 商户
+        {
+            t = 4;
+        }
+        else if (src.toLowerCase().indexOf("groupon") != -1)// 团购
+        {
+            id = getQueryStringByName("gid", src);;
+            t = 8;
+        }
+
+        $mcPost('/bonus/shareaddbonus', { t: t, rid: id }, function (res) {
+            location.href = url;
+        }, function () {
+            location.href = url;
+        }, true);
+    }
+    </script>
+
+    <!-- 点击放大图片 -->
+    <div class="mask"></div>
+    <div class="imagsList">
+        <div class="imagsListWap">
+            <ul class="clearfixed"></ul>
+        </div>
+        <p class="circles"></p>
+    </div>
+
+
+
+
+
+    <script src="/bundles/js/zeptos?v=2n1HMJnTEwid20-ht-OFr-PmNNlRZsgmqeORZrQnJaI1"></script>
+
+    <script src="/bundles/js/app?v=l4u2FGor-t_0HcXRgtIuHtMJooizersX9G_Se3nAs4U1"></script>
+
+    <script src="/assets_v2/js/plugins/appnative-js?v=K6yspH_HlSagB5MoFwa6MHxnY4AhicCwCYVkw9wL0yw1"></script>
+
+
+    <script>
+        var isFromMp='False'; //是否在微信中
+        var noJsSDK='False'; //是否不启用JsSDK
+        var isMpLoginAble ='True'; //是否获取openid
+    </script>
+    <script src="/assets/js/jssdk/mp-js?v=xqHSHJC-iKL9zhHSQTUKYfzQ_KujMmpr2wD3rH4tZe41"></script>
+
+
+    <script>
+        var $_type = '';//
+        var _type = 3;
+        var domain = "http://lapp.mallcoo.cn";
+        var domain_api="http://api.mallcoo.cn";
+    </script>
+
+
+
+
+    <script src="/assets/js/LayoutSettings.js"></script>
+    <script>
+        //a标签 添加_mid
+        $mcSetHrefParams('55');
+    </script>
+
+
+    <script>
+        var noLogin = "False";
+    </script>
+    <script src="/assets/js/shop/detail-js?v=nVgGMXa0X3i_8E0zJ1P9ozRIE8hUtpD-Crr1avc5New1"></script>
+
+    <script>
+        var a = new Swiper('#a', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            slidesPerView: 'auto'
+        })
+        if ($('#b li').length > 4) {
+            var b = new Swiper('#b', {
+            })
+        }
+
+        //点击放大图片 可滑动
+        //slider js
+        function sliderFunc(obj, idx, total) {
+            var flag = false;
+            var wid = $(window).width();
+            var totalNumber = $(obj).find('img').length;
+            var currentIndex = idx + 1;
+
+            $(obj).find('ul').css({ "width": wid * totalNumber + 'px' });
+            $(obj).find('li').css({ "width": wid + 'px' })
+            $(obj).find('img').css({ "width": wid + 'px' });
+            var circle = " ";
+            for (var i = 0; i < totalNumber; i++) {
+                circle += "<span></span>"
+            }
+            $(total).html($(obj).find('li').eq(idx).attr("data-res"));
+            $(total).find("span").eq(currentIndex - 1).addClass("current");
+            $(obj).find("ul").css({
+                "-webkit-transform": "translate3d(" + -wid * idx + "px,0px,0px)",
+                "-webkit-transition-duration": "0ms"
+            });
+
+
+            $(obj).swipeLeft(function () {
+                if (currentIndex > 0 && currentIndex < totalNumber && !flag) {
+                    flag = true;
+                    $(this).find("ul").css({
+                        "-webkit-transform": "translate3d(" + -wid * currentIndex + "px,0px,0px)",
+                        "-webkit-transition-duration": "300ms",
+                        "-webkit-animation-timing-function": "ease-out"
+                    }).on("webkitTransitionEnd", function () {
+                        flag = false;
+                    });
+
+                    currentIndex++
+                    //$(total).find("span").removeClass("current").eq(currentIndex - 1).addClass("current");
+                    $(total).html($(obj).find('li').eq(currentIndex - 1).attr("data-res"));
+                }
+            });
+
+            $(obj).swipeRight(function () {
+                if (currentIndex > 1 && currentIndex <= totalNumber && !flag) {
+                    flag = true;
+                    currentIndex--
+                    //$(total).find("span").removeClass("current").eq(currentIndex - 1).addClass("current");
+                    $(total).html($(obj).find('li').eq(currentIndex - 1).attr("data-res"));
+                    $(this).find("ul").css({
+                        "-webkit-transform": "translate3d(" + -wid * (currentIndex - 1) + "px,0px,0px)",
+                        "-webkit-transition-duration": "300ms",
+                        "-webkit-animation-timing-function": "ease-out"
+                    }).on("webkitTransitionEnd", function () {
+                        flag = false;
+                    });
+                }
+            });
+
+        }
+
+
+        var eventListennerFn = function (e) { e.preventDefault(); };
+        $(".mer-dishes li").click(function (e) {
+            var tp = $(window).scrollTop();
+            var idx = $(this).data('index');
+            $(".mask").css("opacity", 1).show();
+            if ($(".mask").height() < $("body").height()) {
+                $(".mask").css("height", $("body").height())
+            }
+
+            $(".imagsList").show().css({ "top": tp });
+
+
+            var list = $(".mer-dishes li");
+            var li_str = "";
+            for (var i = 0; i < list.length; i++) {
+                li_str = li_str + '<li data-res=\"' + list.eq(i).find("span").html() + '\"><img src=\"' + list.eq(i).attr('data-href') + '\"/><span></span></li>';
+            }
+            $(".imagsList ul").html($(li_str));
+            sliderFunc(".imagsList", idx, ".circles");
+            document.addEventListener('touchmove', eventListennerFn, false);
+        });
+
+        $(".imagsList,.mask").tap(function () {
+            setTimeout(function () {
+                $(".mask").css("opacity", 0.65).hide();
+                $(".imagsList").hide();
+                document.removeEventListener('touchmove', eventListennerFn, false);
+            }, 10)
+        });
+
+
+        var postdata = { shopId: '71829' };
+
+        $mcPost('/Shop/GetShopCommentCount', postdata, function (res) {
+            if (res.success)
+                if ('False'.toLowerCase() == 'true' && 'False'.toLowerCase() == 'false') {
+                    $('#aCommentList').before("评分（" + res.count + "条）");
+                }
+                else {
+                    $('#aCommentList').before("评价（" + res.count + "条）");
+                }
+        }, null, true);
+
+        if ('55' == '135') {
+            $("#Favorite").hide();
+        }
+    </script>
+
+
+    <!-- 埋点 -->
+    <script>
+        var tParams = {};
+        var IsProduction = 'True';
+        tParams.referrerUrl = "wsk_lapp/shop/map_p0?_mid=55";
+        tParams.url = "wsk_lapp/shop/detail?shopId=71829&_mid=55";
+        tParams._at = "39";
+        tParams.mid = "55";
+        tParams.sid = "71829";
+        tParams.csrc = "3";
+        tParams.dsSrc = "3";
+        tParams.uid = "";
+        tParams.api = "http://track.mallcoo.cn";
+        tParams.browser = "Chrome";
+        tParams._r = (typeof _r != "undefined" && _r != null) ? _r : "";
+        tParams._rt = (typeof _rt != "undefined" && _rt != null) ? _rt : "";
+    </script>
+    <script src="/assets/js/common/statistics.js"></script>
+
+
+
+
+
+    <!-- 地理位置 -->
+    <!-- 分享处理 -->
+
+    <script type="text/javascript">
+
+        if(_type != 1 && _type != 2){
+            $(document).ready(startapp.init);
+        }
+
+    </script>
+
+
+
+
+</body>
+</html>
