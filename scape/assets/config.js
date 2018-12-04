@@ -14,17 +14,17 @@ var AppConfig={
             id:"map",
             title:"景区地图",
             type:"tiled",
-            url1:"http://61.50.135.114:50023/arcgis/rest/services/zhushan/ZhuSMap/MapServer",
-            url: "http://172.16.12.173:6080/arcgis/rest/services/zhushan/ZhuSMap/MapServer"
+            url:"http://61.50.135.114:50023/arcgis/rest/services/zhushan/ZhuSMap/MapServer",
+            url1: "http://172.16.12.173:6080/arcgis/rest/services/zhushan/ZhuSMap/MapServer"
         }
     ],
     text:{
         search:"搜景点，听介绍，找车位",
     },
     layers:{
-        point1: "http://61.50.135.114:50023/arcgis/rest/services/zhushan/ZhuSMap/MapServer/0",
+        point: "http://61.50.135.114:50023/arcgis/rest/services/zhushan/ZhuSMap/MapServer/0",
 
-        point: "http://172.16.12.173:6080/arcgis/rest/services/zhushan/ZhuSMap/MapServer/0",
+        point1: "http://172.16.12.173:6080/arcgis/rest/services/zhushan/ZhuSMap/MapServer/0",
     },
     searchList:[
         {
