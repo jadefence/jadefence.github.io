@@ -147,7 +147,7 @@ var app = {
         var strli="";
         for (let i = 0; i < AppConfig.searchList.length; i++) {
             var s = AppConfig.searchList[i];
-            strli += "<li><i style='background: url(images/icon/"+s.icon+".png) no-repeat;'></i>"+s.name+"</li>";
+            strli += "<li><div style='background: url(assets/images/icon/"+s.icon+".png) no-repeat;'></div><div>"+s.name+"</div></li>";
         }
         $("#publicList ul").append(strli);
     }

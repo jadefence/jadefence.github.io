@@ -38,7 +38,7 @@ window.onload = function () {
         gis.initShopData();
     }
     else {
-        gis.initPointData();
+        
     }
     lmap.InitMap(appJson, function () {
         if (AppConfig.isMult) {
@@ -46,7 +46,7 @@ window.onload = function () {
             gis.addShopLayer();
         }
         else {
-            gis.addScapeLayer();
+            gis.getPointData();
         }
         lmap.SetZoomButton({ postion: "bottom-right" });
     });
@@ -84,9 +84,28 @@ var gis = {
         lmap.TaskQuery(queryJson, function (e) {
             if (e.features.length > 0) {
                 for (var i = 0; i < e.features.length; i++) {
+                    if (e.features[i].attributes['voice'] == '1') {
+                        e.features[i].attributes['type'] = '9';
+                    }
                     AppData.shopList.push(e.features[i].attributes);
                 }
                 AppData.fsList = e.features;
+            }
+        });
+    },
+    //获取数据库点位
+    getPointData: function () {
+        $.post('data/point.ashx', { t: 'p' }, function (result) {
+            var data = eval("(" + result + ")").rows;
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i]['voice'].length > 0) {
+                        data[i]['type'] = '9';
+                    }
+                    AppData.shopList.push(data[i]);
+                }
+                AppData.fsList = data;
+                gis.addScapeLayer();
             }
         });
     },
@@ -113,8 +132,8 @@ var gis = {
         var point = [];
         for (var i in AppData.fsList) {
             point.push({
-                "geometry": { "x": AppData.fsList[i].geometry.longitude, "y": AppData.fsList[i].geometry.latitude, "spatialReference": { "wkid": 4326 } },
-                "attributes": AppData.fsList[i].attributes
+                "geometry": { "x": AppData.fsList[i].lon, "y": AppData.fsList[i].lat, "spatialReference": { "wkid": 4326 } },
+                "attributes": AppData.fsList[i]
             })
         }
         var symbolJson = {
@@ -198,6 +217,26 @@ var gis = {
                         }
                     }
                 }
+            }, {
+                "value": "9",//语音点位
+                "symbol": {
+                    "type": "PointSymbol3D",
+                    "symbolLayers": [{
+                        "type": "Icon",
+                        resource: {
+                            href: "assets/images/maps/语音.png"
+                        },
+                        size: 30,
+                    }],
+                    callout: {
+                        type: "line",
+                        color: [138, 138, 138],
+                        size: 2,
+                        border: {
+                            color: [138, 138, 138]
+                        }
+                    }
+                }
             },
             ]
         };
@@ -235,7 +274,7 @@ var gis = {
 
         lmap.LayerClear("scape_layer");
         lmap.AddPoints("scape_layer", graJson);
-    }, 
+    },
     //商铺图层
     addShopLayer: function () {
         var floor = AppData.cur.floor;
@@ -605,7 +644,7 @@ var gis = {
     },
 }
 
-function scapeClick(e) { 
+function scapeClick(e) {
     if (!e) {
         $(".swiper-wrapper").hide();
     } else {
@@ -614,9 +653,12 @@ function scapeClick(e) {
         for (var i in e.results) {
             var d = e.results[i].graphic.attributes;
             d.id = 1;
-            d.code = '...';
+            d.code = d.voice;
+            if (d.type == 9) {
+                d.BrandLogo = "assets/images/icon/播放.png";
+            }
             data.push(d);
         }
         mapShow.shop_base(data, 3);
-    } 
+    }
 }

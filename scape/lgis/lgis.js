@@ -8,7 +8,7 @@ var lgis_Host = "http://172.16.12.20:8003/lgis/";
 var lgis_Host = window.location.host + "/lgis/";
 var lgis_domain = document.domain;
 if (lgis_domain.indexOf("172.16") > -1 || lgis_domain.indexOf("localhost") > -1)
-    lgis_API = "http://172.16.12.173:4057/arcgis_js_v48_api/"
+    lgis_API = "http://61.50.135.114:4057/arcgis_js_v48_api/"
     //lgis_API = "http://172.16.14.31/4.7/"
 else
     lgis_API = "http://61.50.135.114:4057/arcgis_js_v48_api/"

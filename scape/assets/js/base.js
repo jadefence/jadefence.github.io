@@ -487,7 +487,7 @@ var mapShow = {
         this.id = this.id + 1;
         return 'sear_mark_num' + this.id;
     },
-    // 搜索商铺面板
+    // 生成搜索结果面板
     createShopPanel: function (d, type) {
         var card = '', fid, fn, name, link, pn, dn, pn, src;
         var ref = { x: 100, y: 20 };
@@ -594,13 +594,53 @@ var mapShow = {
                         '</div>' +
                     '</div>';
     },
+    // 景点面板
+    createScapePanel: function (d) { 
+        var card = '', fid, fn, name, link, pn, dn, pn, src;
+        var ref = { x: 100, y: 20 };
+        sid = d.id;
+        name = d.name;
+        if (d.BrandLogo == undefined) {
+            src = "assets/images/images-mixc/free-60-icons-21.png";
+        }
+        else if (d.BrandLogo == '') {
+            src = d.Photo;
+            var arr = src.split('mc/');
+            arr[1] = arr[1].replace(/\//g, '').replace('.', '_200x200_1_0_0.');
+            src = arr.join('mc/');
+        } else {
+            src = d.BrandLogo;
+        }
+        pn = d.SubCommercialTypeName;
+
+
+        var href = '#p=map_p2&ex=' + ref.x + '&ey=' + ref.y + '&efid=' + fid + '&ename=' + escape(name),
+            link = '/shop/detail?shopId=' + sid;
+        return '<div class="Mitem swiper-slide" data-id="' + d.maid + '">' +
+                    '<div class="inner">' +
+                        '<a class="inforhd" href="#" data-href="' + d.id + '">' +
+                            '<img src="' + src + '" class="shoppic">' +
+                            '<div class="con">' +
+                                '<div class="tit">' +
+                                    '<h4>' + (d.idx ? d.idx + '. ' : '') + name + '</h4>' +
+                                    card +
+                                '</div>' +
+                                //'<p class="addr ellipsis">' + pn + ' ' + fn + ' ' + dn + '</p>' +
+                                '<p class="addr ellipsis">' + d.code + '</p>' +
+                            '</div>' +
+                            //'<i class="arrow-r"></i>' +
+                        '</a>' +
+                        '<div class="inforbd" data-type="a" data-href="' + d.id + '"><i class="s_map icon-dist"></i>到这里</div>' +
+                    '</div>' +
+                '</div>'
+    },
     // 搜索标注icon
     createMark: function (maid, id, idx, x, y, num) {
         return '<div id="' + id + '" data-id="' + maid + '" data-idx="' + idx + '" class="map_marker map_marker11' + (idx == 0 ? ' cur' : '') + '" style="top:' + (y - 29) + 'px;left:' + (x - 11) + 'px;">' + num + '</div>';
     },
     // 搜索公共设施标注
     hd: function (type) {
-        var _this = this,num=0,
+        var _this = this, num = 0,
             //v = map.opts.searchVal,
             name = $("#searIptTxt").val(),
             str_icon = '',
@@ -651,12 +691,27 @@ var mapShow = {
                 _this.mark_focus(id);
             }
         });
-
-        $(".inforhd").bind("click", function () {
-            return;
-            $("#shopDetail").show();
-            $("#shopDetail").load("shop/detail.html");
+        var played = false;
+        //面板标题事件
+        $(".inforhd").bind("click", function (e) {
+            debugger;
+            var id = e.currentTarget.dataset.href; 
+            var myVideo = document.getElementById("video1");
+            if(!played){ 
+                $("#video1").show();
+                myVideo.style.display = "block"; 
+                myVideo.src = "voices/" + id + ".mp3";
+                myVideo.play();
+                played = true;
+                $(".inforhd .shoppic").attr("src", "assets/images/icon/暂停.png");
+            }else{
+                played = false;
+                $(".inforhd .shoppic").attr("src", "assets/images/icon/播放.png");
+                myVideo.pause();
+            }
+            
         })
+        //面板按钮事件
         $(".inforbd").bind("click", function (e) {
             return;
             var id = e.currentTarget.dataset.href;
@@ -676,8 +731,13 @@ var mapShow = {
         for (var i = 0, n = data.length; i < n; i++) {
             var item = data[i];
             item.maid = item.id;
-            item.idx = num = 1;
-            str_div += this.createShopPanel(item, type);
+            item.idx = num = 1; 
+            if (item.voice) {//带语音的面板
+                str_div += this.createScapePanel(item, type);
+            } else {//普通面板
+                str_div += this.createShopPanel(item, type);
+            }
+
         }
         if (type == 1) {
             $('.ipt_sear').html('优惠信息');

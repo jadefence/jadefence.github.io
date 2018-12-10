@@ -83,3 +83,7 @@
 .esri-ui-bottom-right {
     
 }
+
+.esri-attribution{
+    display: none;
+}

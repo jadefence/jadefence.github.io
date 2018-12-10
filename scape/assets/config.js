@@ -22,7 +22,7 @@ var AppConfig={
         search:"搜景点，听介绍，找车位",
     },
     layers:{
-        point: "http://61.50.135.114:50023/arcgis/rest/services/zhushan/ZhuSMap/MapServer/0",
+        point: "http://61.50.135.114:50023/arcgis/rest/services/zhushan/ZhuShanPoint/MapServer/0",
 
         point1: "http://172.16.12.173:6080/arcgis/rest/services/zhushan/ZhuSMap/MapServer/0",
     },
