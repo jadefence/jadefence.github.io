@@ -57,7 +57,7 @@ public class point : IHttpHandler
     public string getDBdata(string sql)
     {
         System.Data.DataSet ds = new System.Data.DataSet();
-        string connStr = "server=.;database=scape;uid=sa;pwd=sa";
+        string connStr = "server=172.16.12.173;database=scape;uid=sa;pwd=sa";
         //string sqlList = "select * from dsc_wechat_user u left join dsc_region_xy r on r.county like CONCAT( '%' ,u.city ,'%') where u.city <> ''";
         try
         {

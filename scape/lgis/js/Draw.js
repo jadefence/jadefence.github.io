@@ -26,8 +26,6 @@ define([
 
         var Draw = Custom.createSubclass({
             declaredClass: "esri.custom._Draw",
-            curGraphic:null,
-            callback:null,
             normalizeCtorArgs: function (view, options) {
                 options || (options = {});
                 this._mapView = view;
@@ -67,7 +65,6 @@ define([
                 dojo.query(view.container).addContent('<div id="fn-tooltip-div" style="position:absolute;border: 1px solid #999;padding: 4px;background:#fff0bb;"></div>');
                 this.tooltipMsg = dojo.mixin({
                     click: '点击开始绘制',
-                    clickEnd: '点击结束绘制',
                     doubleClick: '双击结束绘制',
                     drag: '按下鼠标左键开始绘制',
                     dragStart: '移动鼠标进行绘制',
@@ -75,7 +72,7 @@ define([
                 }, options.tooltipMsg);
                 this._tooltipNode = dom.byId('fn-tooltip-div');
             },
-            _clickGeometryTypes: [types.POLYGON, types.POLYLINE, types.POINT, types.POINT, types.CIRCLE], // 点击绘制的几何类型
+            _clickGeometryTypes: [types.POLYGON, types.POLYLINE, types.POINT, types.POINT], // 点击绘制的几何类型
             _dragGeometryTypes: [types.FREE_POLYGON, types.FREE_POLYLINE, types.FREE_EXTENT], // 拖拽绘制的几何类型
             properties: {
                 start: false,
@@ -98,9 +95,7 @@ define([
                     if (dojo.indexOf(me._clickGeometryTypes, me._geometryType) > -1) {
                         if (!me.get('start')) {
                             me.set('start', true);
-                            if (me._geometryType == types.CIRCLE)
-                                me._setTooltipMsg(me.tooltipMsg.clickEnd);
-                            else if (me._geometryType !== types.CIRCLE)
+                            if (me._geometryType !== types.POINT)
                                 me._setTooltipMsg(me.tooltipMsg.doubleClick);
                         }
                         me._drawPoint(event.mapPoint);
@@ -162,7 +157,6 @@ define([
                         me.set('drag', graphic);
                     }
                 }), dojo.query(this._mapView.container).on('keyup', function (e) {
-                    return;
                     if (e.keyCode === 27) { // 点击退出键
                         me.deactivate();
                     }
@@ -189,7 +183,7 @@ define([
                             graphic = me._drawPolygon(me._clickPoints.concat([mapPoint]), me._tempGraphicLayer); break;
                         case types.POLYLINE:
                             graphic = me._drawPolyline(me._clickPoints.concat([mapPoint]), me._tempGraphicLayer); break;
-                        case types.CIRCLE:
+                        case types.Circle:
                             graphic = me._drawCircle(me._clickPoints.concat([mapPoint]), me._tempGraphicLayer); break;
                         case types.FREE_POLYGON:
                             me._freeDraw(event);
@@ -223,35 +217,18 @@ define([
                 this.set('end', graphic);
                 //this._drawGraphicLayer.removeAll();
                 this._clickPoints = [];
-                this.deactivate();
-                if (this.callback) {
-                    if (graphic) this.callback(graphic);
-                    else this.callback(this.curGraphic);
-                }
             },
-            activate: function (geometryType,callback) {
+            activate: function (geometryType) {
                 this._geometryType = geometryType;
                 this.registerEvents();
-                if (callback) {
-                    this.callback = callback;
-                }
             },
             deactivate: function () {
                 dojo.forEach(this._handlers, function (handler) {
                     handler.remove();
                 });
                 this._tempGraphicLayer.removeAll();
+                this._drawGraphicLayer.removeAll();
                 this._setTooltipMsg('');
-            },
-            clear: function () { 
-                this._drawGraphicLayer.removeAll();
-            },
-            clearItem: function (randomId) {
-                debugger;
-                //this._drawGraphicLayer.removeMany(dojo.filter(this._drawGraphicLayer.graphics.items, function (g) {
-                //    return g.attributes['randomId'] == randomId;
-                //}));
-                this._drawGraphicLayer.removeAll();
             },
             _drawCircle: function (mapPoints, layer) {
                 var _layer = layer || this._drawGraphicLayer;
@@ -267,17 +244,12 @@ define([
                         center: firstPoint,
                         radius: Math.sqrt(Math.pow(firstPoint.x - secPoint.x, 2) + Math.pow(firstPoint.y - secPoint.y, 2))
                     });
-                    this._currentRandomId = (new Date()).valueOf();
                     var graphic = new Graphic({
                         geometry: circle,
-                        symbol: layer ? this._defaultSymbol.tempPolygon : this._defaultSymbol.polygon,
-                        attributes: {
-                            randomId: this._currentRandomId
-                        }
+                        symbol: layer ? this._defaultSymbol.tempPolygon : this._defaultSymbol.polygon
                     });
                     _layer.add(graphic);
                     this._drawPoint(circle.centroid);
-                    this.curGraphic = graphic;
                     return graphic;
                 }
             },
@@ -298,7 +270,6 @@ define([
                         symbol: layer ? this._defaultSymbol.tempPolygon : this._defaultSymbol.polygon
                     });
                     _layer.add(graphic);
-                    this.curGraphic = graphic;
                     return graphic;
                 }
             },
@@ -318,7 +289,7 @@ define([
                         symbol: layer ? this._defaultSymbol.tempPolygon : this._defaultSymbol.polygon
                     });
                     _layer.add(graphic);
-                    this.curGraphic = graphic;
+                    this._drawPoint(polygon.centroid);
                     return graphic;
                 }
             },
@@ -335,7 +306,6 @@ define([
                     symbol: layer ? this._defaultSymbol.tempPolyline : this._defaultSymbol.polyline
                 });
                 _layer.add(graphic);
-                this.curGraphic = graphic;
                 return graphic;
             },
             _drawPoint: function (mapPoint, layer) {
@@ -350,7 +320,6 @@ define([
                     symbol: new SimpleMarkerSymbol()
                 });
                 _layer.add(graphic);
-                this.curGraphic = graphic;
                 return graphic;
             }
         });

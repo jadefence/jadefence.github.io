@@ -143,7 +143,7 @@ body{background-color:#f2f2f2;height:100%;width:100%;overflow:hidden;}
 .mapInfor .inforhd .tit h4{display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;max-width:64%;font-size:16px;}
 .mapInfor .inforhd .addr{font-size:13px;width:100%;}
 .mapInfor .inforbd{height:37px;line-height:37px;text-align:center;font-size:16px;}
-.arrow-r{position:absolute;right:10px;top:50%;width:10px;height:10px;-webkit-transform:rotate(-135deg);box-shadow:inset 2px -2px #b9b9b9;}
+.arrow-r{position:absolute;right:10px;top:50%;width:10px;height:10px;-webkit-transform:rotate(-135deg);box-shadow:inset 2px -2px #b9b9b9;display: none;}
 .shoptype{display:inline-block;width:20px;height:20px;line-height:18px;border-radius:50%;border:1px solid;font-size:14px;text-align:center;vertical-align:top;margin-left:5px;}
 .shoptype1{color:#ff8400;border-color:#ff8400;} /*团*/
 .shoptype2{color:#ef0000;border-color:#ef0000;} /*惠*/

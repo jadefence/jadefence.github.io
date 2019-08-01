@@ -1,7 +1,15 @@
 ﻿.path_tip{position:absolute;background:#e84738;color:#fff;font-size:14px;min-width:96px;width:auto;padding:0 5px;line-height:24px;text-align:center;border-radius:5px;z-index:2;border: 1px solid #fff;-webkit-transform:translate(-50%,0);white-space: nowrap;}
-.sear_f_box .sear_con .ipt_sear{width:100%;font-size:16px;background-color:transparent;padding-left:35px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
+.sear_f_box .sear_con .ipt_sear{
+    width:90% !important;
+    font-size:16px;
+    background-color:transparent;
+    padding-left:35px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
 .f_num1{min-width:40px;width:auto;padding:0 5px;}
-.routelist{overflow-x:auto;}
+.routelist{overflow-x:auto;line-height: 35px;font-size: 16px;}
 .routelist .floornum{display:inline-block;min-width:33px;width:auto;padding:0 5px;border-radius:33px;white-space: nowrap;}
 .sear_sugg_list{display:none;position:absolute;left:0;width:100%;padding: 0;background-color: #fff;-webkit-box-shadow:0 1px 4px #bbb;}
 .sear_sugg_list li:last-child span{border:0;}
@@ -82,3 +90,4 @@
 .noRoute .inforbd{display: none}
 
 .mbsc-mobiscroll .dw-li {font-size:16px!important;}
+

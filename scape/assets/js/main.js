@@ -2,47 +2,7 @@
 shopName.getShopList();
 mapfn.createFloor();
  
-//输入框焦点
-$(".ipt_sear_default").bind("focus", function () {
-    $(".mapInfor").hide();
-    $("#publicList").show();
-})
-//输入框变化
-$(".ipt_sear_default").bind("input propertychange", function (e) {
-    var txt = $(".ipt_sear_default").val();
-    var str = sarchShop(txt);
-    $("#sear_list ul").html(str);
-    $("#searchList").show();
-})
-//返回键点击
-$(".icon-back").bind("click", function () {
-    $("#searchList").hide();
-    $("#publicList").hide();
-    gis.clearMap();
-    $(".mapslidewrap").hide();
-})
- //设施点击
-$(".s_search li").bind("click", function (e) {
-    var txt = e.currentTarget.innerText;
-    var type = e.currentTarget.dataset.type;
-    $("#searIptTxt").val(txt);
-    mapShow.hd(type);
-    $("#searchList").hide();
-    $("#publicList").hide();
-    
-})
-//楼层点击
-$("#changeFloor").bind("click", function () {
-    //if ($('#pg_findcar').length) { return }
-    $('#floorPanel').mobiscroll('show').mobiscroll('setVal', AppData.cur.floor);
-    
-})
-//退出导航
-$("#quitNav").bind("click", function () {
-    gis.clearMap();
-    $("#panel_nav_tab").hide();
-})
-
+var geolocation;
 
 
 //搜索店铺
@@ -133,10 +93,15 @@ function closeDeatil() {
 }
  
 var app = {
+    token:'',
     getShopById:function(id) {
         for (var i = 0; i < AppData.shopList.length; i++) {
             var shop = AppData.shopList[i];
             if (shop.id == id) {
+                if(!shop.dx){
+                    shop.dx = shop.lon;
+                    shop.dy = shop.lat;
+                }
                 return shop;
             }
         }
@@ -147,8 +112,173 @@ var app = {
         var strli="";
         for (let i = 0; i < AppConfig.searchList.length; i++) {
             var s = AppConfig.searchList[i];
-            strli += "<li><div style='background: url(assets/images/icon/"+s.icon+".png) no-repeat;'></div><div>"+s.name+"</div></li>";
+            strli += "<li data-type='"+s.type+"'><div><img src='assets/images/icon/"+s.icon+".png'></img></div>"
+            strli += "<div>"+s.name+"</div></li>";
         }
-        $("#publicList ul").append(strli);
+        $("#publicList ul").append(strli); 
+        this.bindEvent(); 
+        this.getBttsToken();
+    },
+    //事件绑定
+    bindEvent:function(){
+        //输入框焦点
+        $(".ipt_sear_default").bind("focus", function () {
+            $(".mapInfor").hide();
+            $("#publicList").show();
+        })
+        //输入框变化
+        $(".ipt_sear_default").bind("input propertychange", function (e) {
+            var txt = $(".ipt_sear_default").val();
+            var str = sarchShop(txt);
+            $("#sear_list ul").html(str);
+            $("#searchList").show();
+        })
+        //返回键点击
+        $(".icon-back").bind("click", function () {
+            $("#searchList").hide();
+            $("#publicList").hide();
+            gis.clearMap();
+            $(".mapslidewrap").hide();
+        })
+        //设施点击
+        $(".s_search li").bind("click", function (e) {  
+            var txt = e.currentTarget.innerText;
+            var type = e.currentTarget.dataset.type;
+            $("#searIptTxt").val(txt);
+            mapShow.hd(type);
+            $("#searchList").hide();
+            $("#publicList").hide();
+            
+        })
+        //楼层点击
+        $("#changeFloor").bind("click", function () {
+            //if ($('#pg_findcar').length) { return }
+            $('#floorPanel').mobiscroll('show').mobiscroll('setVal', AppData.cur.floor);
+        }) 
+        //退出导航
+        $("#quitNav").bind("click", function () {
+            gis.clearMap();
+            $("#panel_nav_tab").hide();
+        })
+        //工具点击
+        $(".mapTool li").bind("click", function (e) { 
+            var type = e.currentTarget.dataset.target;
+            switch (type) {
+                case 'locate':
+                    lmap.FlyTo("locate_layer", "", null, null, 18, false);
+                    break;
+            
+                default:
+                    break;
+            }
+        })
+    },
+    location(){
+        if (navigator.geolocation){ 
+            navigator.geolocation.getCurrentPosition(showPosition); 
+            navigator.geolocation.watchPosition(showPosition);
+          }else{ 
+            alert("浏览器不支持地理定位。"); 
+        } 
+        function showPosition(position){ 
+            var lat = position.coords.latitude; //纬度 
+            var lag = position.coords.longitude; //经度 
+            //alert('纬度:'+lat+',经度:'+lag+',方向：'+position.coords.heading); 
+            gis.showPosition({
+                x:lag,
+                y:lat
+            })
+        }
+        function showError(error){ 
+            switch(error.code) { 
+              case error.PERMISSION_DENIED: 
+                alert("定位失败,用户拒绝请求地理定位"); 
+                break; 
+              case error.POSITION_UNAVAILABLE: 
+                alert("定位失败,位置信息是不可用"); 
+                break; 
+              case error.TIMEOUT: 
+                alert("定位失败,请求获取用户位置超时"); 
+                break; 
+              case error.UNKNOWN_ERROR: 
+                alert("定位失败,定位系统失效"); 
+                break; 
+            } 
+        } 
+        
+        // gis.showPosition({
+        //     x:114.431077,
+        //     y:36.78345
+        // })
+    },
+    locateQQ(){
+        geolocation = new qq.maps.Geolocation("OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77", "myapp");
+        geolocation.watchPosition(showPosition,showError);
+
+        // setInterval(() => {
+        //     geolocation.watchPosition(showPosition,showError);
+        // }, 3000);
+
+        function showPosition(position){ 
+            var cs = gcj02towgs84(position.lng,position.lat);
+            var lng = cs[0]; //经度 
+            var lat = cs[1]; //纬度 
+            $("#apptip").html("x:"+lng+",y:"+lat);
+            gis.showPosition({
+                x:lng,
+                y:lat
+            })
+        }
+        function showError(error){ 
+            switch(error.code) { 
+              case error.PERMISSION_DENIED: 
+                alert("定位失败,用户拒绝请求地理定位"); 
+                break; 
+              case error.POSITION_UNAVAILABLE: 
+                alert("定位失败,位置信息是不可用"); 
+                break; 
+              case error.TIMEOUT: 
+                alert("定位失败,请求获取用户位置超时"); 
+                break; 
+              case error.UNKNOWN_ERROR: 
+                alert("定位失败,定位系统失效"); 
+                break; 
+            } 
+        } 
+    },
+    //获取语音token
+    getBttsToken(){
+        $.get('http://pay.xixiawangluo.com/pay/getVoiceToken', { t: 'p' }, function (result) {
+            var data = result.data;
+            app.token = data.access_token;
+        });
+    },
+    //语音转换
+    getVoice(txt){
+        btts({
+            tex: txt,
+            tok: app.token,
+            spd: 5,
+            pit: 5,
+            vol: 15,
+            per: 4
+        }, {
+            volume: 0.3,
+            autoDestory: true,
+            timeout: 10000,
+            hidden: false,
+            onInit: function (htmlAudioElement) {
+
+            },
+            onSuccess: function(htmlAudioElement) { 
+                var audio = htmlAudioElement;
+                var myVideo = document.getElementById("video1");
+                myVideo.src = audio.src;
+            },
+            onError: function(errorText) {
+            },
+            onTimeout: function () {
+            }
+        });
     }
 }

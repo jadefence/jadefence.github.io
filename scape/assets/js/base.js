@@ -694,13 +694,12 @@ var mapShow = {
         var played = false;
         //面板标题事件
         $(".inforhd").bind("click", function (e) {
-            debugger;
             var id = e.currentTarget.dataset.href; 
             var myVideo = document.getElementById("video1");
             if(!played){ 
                 $("#video1").show();
-                myVideo.style.display = "block"; 
-                myVideo.src = "voices/" + id + ".mp3";
+                //myVideo.style.display = "block"; 
+                //myVideo.src = "voices/" + id + ".mp3";
                 myVideo.play();
                 played = true;
                 $(".inforhd .shoppic").attr("src", "assets/images/icon/暂停.png");
@@ -713,7 +712,6 @@ var mapShow = {
         })
         //面板按钮事件
         $(".inforbd").bind("click", function (e) {
-            return;
             var id = e.currentTarget.dataset.href;
             AppData.cur.target = app.getShopById(id);
             $("#routeStart").show();
@@ -733,7 +731,8 @@ var mapShow = {
             item.maid = item.id;
             item.idx = num = 1; 
             if (item.voice) {//带语音的面板
-                str_div += this.createScapePanel(item, type);
+                str_div += this.createScapePanel(item, type); 
+                app.getVoice(item.voice);
             } else {//普通面板
                 str_div += this.createShopPanel(item, type);
             }

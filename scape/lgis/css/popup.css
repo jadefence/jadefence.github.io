@@ -1,0 +1,40 @@
+﻿.dextra-bubble-pop {
+    position: absolute;
+    z-index: 100;
+    box-sizing: border-box;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, .15);
+    background-color: #FFF;
+}
+
+.dextra-poi-info-window {
+    padding: 4px 0;
+}
+
+.dextra-poi-info-window .left {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 40px;
+    /*line-height: 40px;*/
+    display: table;
+    table-layout: fixed;
+    width: 140px;
+    text-align: center;
+}
+
+.dextra-poi-info-window .name-wrap .name {
+    vertical-align: middle;
+    /*font-size: 14px;
+    font-weight: 700;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.dextra-bubble-pop-bottom span {
+    position: absolute;
+    left:72px;
+    width: 16px;
+    height: 10px;
+    background-image: url("../img/tail_shadow.png");
+}

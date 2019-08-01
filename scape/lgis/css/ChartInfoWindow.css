@@ -1,0 +1,22 @@
+﻿.lgisInfoWindow {
+  position: absolute;
+  z-index: 100;
+  -moz-box-shadow: 0 0 1em #26393D;
+  font-family: sans-serif;
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.dj_ie .lgisInfoWindow {
+  border: 1px solid black;
+}
+
+.lgisInfoWindow .content {
+  position: relative;
+  background-color:#EFECCA;
+  color:#002F2F;
+  overflow: hidden;
+  /*padding:2px 2px 2px 2px;*/ 
+  background-color: rgba(255, 255, 255, 0); 
+}
+ 

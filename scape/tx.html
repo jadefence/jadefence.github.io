@@ -1,0 +1,128 @@
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>test</title>
+</head>
+<body>
+    <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
+    <!-- <div id="app" style="margin:auto;width:100%;min-width:600px; max-width:1600px;width:expression_r(document.body.clientWidth > 1600 ? '1600px': 'auto');" >
+        <svg id="svg" xmlns="http://www.w3.org/2000/svg" version="1.1"  viewBox="0,0,3500,3168">
+            <g><image id="image0" width="3500" height="3168" x="0" y="0" xlink:href="zs.jpg"></g>
+            <g>
+            <circle id="point" cx="-10" cy="-10" r="8" stroke-width="3" stroke="green"  fill="red"/>
+            <text id="cxp" fill="red" font-size="16" x="20" y="300" ></text>
+            <text id="cyp" fill="red" font-size="16" x="20" y="360" ></text>
+            <text id="jd" fill="red" font-size="16" x="20" y="400" ></text>
+            </g>
+        </svg>
+    </div> -->
+    <div id="tip1">111</div>
+    <div id="tip2">222</div>
+
+<script language="javascript">
+        var geolocation = new qq.maps.Geolocation("OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77", "myapp");
+        var options = {timeout: 8000};
+        function showPosition(position) { 
+            document.getElementById("tip1").innerHTML = position.lng+","+position.lat;
+            var cs = gcj02towgs84(position.lng,position.lat);
+            cx=(cs[0]-114.42368)*3500/0.015901047;
+            cy=(36.79065-cs[1])*3168/0.011419701;
+            //svgDoc.getElementById("jd").textContent=(position.accuracy);
+            //svgDoc.getElementById("cxp").textContent=("��ʾ");
+            //alert("h")
+            document.getElementById("tip2").innerHTML = cs[0]+","+cs[1];
+            return;
+            if (cx<0 || cx >3500 || cy<0 || cy>3168)
+                {
+                  svgDoc.getElementById("cxp").textContent=(cx);  
+                  svgDoc.getElementById("cyp").textContent=(cy);
+                }
+            else
+            {
+                point.setAttribute("cx",cx);
+                point.setAttribute("cy",cy);
+                svgDoc.getElementById("jd").setAttribute("cx",cx);
+                svgDoc.getElementById("jd").setAttribute("cy",cy+30);
+                svgDoc.getElementById("cxp").textContent=("");
+                svgDoc.getElementById("cyp").textContent=("");
+            }
+        };
+ 
+        function showErr() {
+            //document.getElementById("demo").appendChild(document.createElement('p')).innerHTML = "��λʧ�ܣ�";
+            //document.getElementById("pos-area").scrollTop = document.getElementById("pos-area").scrollHeight;
+        };
+ 
+        function showWatchPosition() {
+            //document.getElementById("demo").innerHTML += "��ʼ����λ�ã�<br /><br />";
+            geolocation.watchPosition(showPosition);
+            //document.getElementById("pos-area").scrollTop = document.getElementById("pos-area").scrollHeight;
+        };
+
+        window.onload = function(){
+            showWatchPosition();
+            //svgDoc=document.getElementById("svg");
+            //point=svgDoc.getElementById("point");
+            //setTimeout(function () {showWatchPosition(); }, 2000);
+        }
+</script>
+
+<script type="text/javascript">
+/**
+* GCJ02 ת��Ϊ WGS84
+* @param lng
+* @param lat
+* @returns {*[]}
+*/
+var x_PI = 3.14159265358979324 * 3000.0 / 180.0;
+var PI = 3.1415926535897932384626;
+var a = 6378245.0;
+var ee = 0.00669342162296594323;
+function gcj02towgs84(lng, lat) { 
+if (out_of_china(lng, lat)) {
+return [lng, lat]
+}
+else {
+var dlat = transformlat(lng - 105.0, lat - 35.0);
+var dlng = transformlng(lng - 105.0, lat - 35.0);
+var radlat = lat / 180.0 * PI;
+var magic = Math.sin(radlat);
+magic = 1 - ee * magic * magic;
+var sqrtmagic = Math.sqrt(magic);
+dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+mglat = lat + dlat;
+mglng = lng + dlng;
+return [lng * 2 - mglng, lat * 2 - mglat]
+}
+}
+function transformlat(lng, lat) { 
+var ret = -100.0 + 2.0 * lng + 3.0 * lat + 0.2 * lat * lat + 0.1 * lng * lat + 0.2 * Math.sqrt(Math.abs(lng));
+ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
+ret += (20.0 * Math.sin(lat * PI) + 40.0 * Math.sin(lat / 3.0 * PI)) * 2.0 / 3.0;
+ret += (160.0 * Math.sin(lat / 12.0 * PI) + 320 * Math.sin(lat * PI / 30.0)) * 2.0 / 3.0;
+return ret
+}
+function transformlng(lng, lat) { 
+var ret = 300.0 + lng + 2.0 * lat + 0.1 * lng * lng + 0.1 * lng * lat + 0.1 * Math.sqrt(Math.abs(lng));
+ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
+ret += (20.0 * Math.sin(lng * PI) + 40.0 * Math.sin(lng / 3.0 * PI)) * 2.0 / 3.0;
+ret += (150.0 * Math.sin(lng / 12.0 * PI) + 300.0 * Math.sin(lng / 30.0 * PI)) * 2.0 / 3.0;
+return ret
+}
+/**
+* �ж��Ƿ��ڹ��ڣ����ڹ�������ƫ��
+* @param lng
+* @param lat
+* @returns {boolean}
+*/
+function out_of_china(lng, lat) { 
+return (lng < 72.004 || lng > 137.8347) || ((lat < 0.8293 || lat > 55.8271) || false);
+}
+</script> 
+</body>
+</html>

@@ -1,10 +1,12 @@
 ﻿
 var appJson1 = {
-    center: [116.158, 23.315 ],
-    scale: 2000,
+    center: AppConfig.center,
+    scale: AppConfig.scale,
     basemap: "topo",
     basemaps: [ ],
     mapcontainer: "mapSelect",
+    maxZoom:AppConfig.maxZoom,
+    minZoom:AppConfig.minZoom,
 };
 
 var lmap1 = new Lgis();
@@ -12,6 +14,17 @@ var lmap1 = new Lgis();
 var gis1 = {
     //初始化底图
     initBaseMap: function () {
+        for (var i = 0; i < AppConfig.basemaps.length; i++) {
+            var blayer = {
+                layerId: AppConfig.basemaps[i].id,
+                layerTitle: AppConfig.basemaps[i].title,
+                layerType: AppConfig.basemaps[i].type,
+                layerUrl: AppConfig.basemaps[i].url
+            };
+            if(!appJson1.basemaps)appJson.basemaps=[];
+            appJson1.basemaps.push(blayer);
+        }
+        return;
         for (var i = 0; i < AppData.floorData.length; i++) {
             var blayer = {
                 layerId: "f" + AppData.floorData[i].ID,
@@ -39,6 +52,279 @@ var gis1 = {
                 }
             });
         }
+    },
+    //获取数据库点位
+    getPointData: function () {
+        var _this = this;
+        if(AppData.fsList.length>0){
+            this.addScapeLayer();
+        }
+        else{
+            $.post('data/point.ashx', { t: 'p' }, function (result) {
+                var data = eval("(" + result + ")").rows;
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i]['voice'].length > 0) {
+                            data[i]['type'] = '9';
+                        }
+                        data[i].df = 1;//1层
+                        AppData.shopList.push(data[i]);
+                    }
+                    AppData.fsList = data;
+                    _this.addScapeLayer();
+                }
+            });
+        }
+        
+    },
+    //景区点位
+    addScapeLayer: function () {
+        var point = [];
+        for (var i in AppData.fsList) {
+            point.push({
+                "geometry": { "x": AppData.fsList[i].lon, "y": AppData.fsList[i].lat, "spatialReference": { "wkid": 4326 } },
+                "attributes": AppData.fsList[i]
+            })
+        }
+        var symbolJson3D = {
+            "type": "uniqueValue",
+            "field1": "type",
+            "defaultSymbol": {
+                "type": "PointSymbol3D",
+                "symbolLayers": [{
+                    "type": "Icon",
+                    resource: {
+                        href: "assets/images/maps/followicon.png"
+                    },
+                    size: 5,
+                }],
+                callout: {
+                    type: "line",
+                    color: [19, 159, 86],
+                    size: 2,
+                    border: {
+                        color: [19, 159, 86]
+                    }
+                }
+            },
+            "uniqueValueInfos": [{
+                "value": "4",//卫生间
+                "symbol": {
+                    "type": "PointSymbol3D",
+                    "symbolLayers": [{
+                        "type": "Icon",
+                        resource: {
+                            href: "assets/images/maps/洗手间.png"
+                        },
+                        size: 15,
+                    }],
+                    callout: {
+                        type: "line",
+                        color: [138, 138, 138],
+                        size: 2,
+                        border: {
+                            color: [138, 138, 138]
+                        }
+                    }
+                }
+            }, {
+                "value": "1",//门
+                "symbol": {
+                    "type": "PointSymbol3D",
+                    "symbolLayers": [{
+                        "type": "Icon",
+                        resource: {
+                            href: "assets/images/maps/门.png"
+                        },
+                        size: 15,
+                    }],
+                    callout: {
+                        type: "line",
+                        color: [138, 138, 138],
+                        size: 2,
+                        border: {
+                            color: [138, 138, 138]
+                        }
+                    }
+                }
+            }, {
+                "value": "0",//景点
+                "symbol": {
+                    "type": "PointSymbol3D",
+                    "symbolLayers": [{
+                        "type": "Icon",
+                        resource: {
+                            href: "assets/images/maps/景点.png"
+                        },
+                        size: 15,
+                    }],
+                    callout: {
+                        type: "line",
+                        color: [138, 138, 138],
+                        size: 2,
+                        border: {
+                            color: [138, 138, 138]
+                        }
+                    }
+                }
+            }, {
+                "value": "9",//语音点位
+                "symbol": {
+                    "type": "PointSymbol3D",
+                    "symbolLayers": [{
+                        "type": "Icon",
+                        resource: {
+                            href: "assets/images/maps/语音.png"
+                        },
+                        size: 30,
+                    }],
+                    callout: {
+                        type: "line",
+                        color: [138, 138, 138],
+                        size: 2,
+                        border: {
+                            color: [138, 138, 138]
+                        }
+                    }
+                }
+            },
+            ]
+        };
+        var symbolJson2D = {
+            "type": "uniqueValue",
+            "field1": "type",
+            "defaultSymbol": {
+                "url": "assets/images/maps/followicon.png",
+                "height": 5,
+                "width": 5,
+                "type": "esriPMS",
+                "style": "STYLE_NULL", 
+            },
+            "uniqueValueInfos": [{
+                "value": "4",//卫生间
+                "symbol": {
+                    "url": "assets/images/maps/洗手间.png",
+                    "height": 20,
+                    "width": 20,
+                    "type": "esriPMS",
+                    "style": "STYLE_NULL",  
+                }
+            }, {
+                "value": "1",//门
+                "symbol": {
+                    "url": "assets/images/maps/门.png",
+                    "height": 20,
+                    "width": 20,
+                    "type": "esriPMS",
+                    "style": "STYLE_NULL",  
+                }
+            }, {
+                "value": "0",//景点
+                "symbol": {
+                    "url": "assets/images/maps/景点.png",
+                    "height": 10,
+                    "width": 10,
+                    "type": "esriPMS",
+                    "style": "STYLE_NULL",  
+                }
+            }, {
+                "value": "9",//语音点位
+                "symbol": {
+                    "url": "assets/images/maps/语音.png",
+                    "height": 20,
+                    "width": 20,
+                    "type": "esriPMS",
+                    "style": "STYLE_NULL",  
+                }
+            },{
+                "value": "5",//餐饮
+                "symbol": {
+                    "url": "assets/images/maps/餐饮.png",
+                    "height": 20,
+                    "width": 20,
+                    "type": "esriPMS",
+                    "style": "STYLE_NULL",  
+                }
+            },
+            ]
+        };
+        var labelCalss3D = [{
+            labelExpressionInfo: {
+                value: "{name}"
+            },
+            symbol: {
+                type: "LabelSymbol3D",
+                symbolLayers: [{
+                    material: { color: [255, 255, 255] },
+                    type: "Text",
+                    size: 10,
+                    halo: {
+                        color: [42, 51, 59],
+                        size: 1
+                    }
+                }],
+            }
+        }];
+        var labelCalss2D = {
+            fieldName: "name",
+            textSymbol: {
+                type: "esriTS",
+                color: { r: 0, g: 0, b: 0, a: 1 },
+                backgroundColor:{ r: 0, g: 0, b: 0, a: 1 },
+                haloColor: { r: 0, g: 0, b: 0, a: 1 },
+                haloSize: 2, 
+                xoffset: 3,
+                yoffset: 10, 
+                font: {  // autocast as esri/symbols/Font
+                    size: 9,
+                    family: "sans-serif",
+                    weight: "bolder"
+                }
+            },
+            minScale:2500,
+
+        };
+        //图层参数构建
+        var graJson = {
+            gra: point,
+            map: {
+                symbol: symbolJson2D,
+                label: labelCalss2D, 
+            },
+            scene: {
+                symbol: symbolJson3D,
+                label: labelCalss3D,
+                offset: 0.1
+            },
+            event: {
+                mouseClick: "scapeClick_select"
+            },
+            //popTemple: pTemplate,
+            zoom: 1
+        };
+
+        lmap1.LayerClear("scape_layer");
+        lmap1.AddPoints("scape_layer", graJson,function(){ 
+            lmap1.AddLabels("scapetext_layer",{
+                pointlayer:"scape_layer",
+                labelfield:"name",
+                map:{
+                    symbol:{
+                        color:"black",
+                        haloColor:[255,255,255,150],
+                        haloSize:0.8,
+                        yoffset: 10,
+                        font: {
+                            size: 9,
+                            //family: "sans-serif", 
+                            weight: "bolder"
+                        }
+                    }
+                },
+                minScale:5000,
+            })
+        });
+
     },
     //商铺图层
     addShopLayer: function () {
@@ -71,7 +357,6 @@ var gis1 = {
             }
             lmap1.ShowPopupMobile(popJson, function () {
                 $(".esriPopupMobile .titlePane").bind("click", function () {
-                    debugger;
                     if (AppData.cur.wait == "iptStart") {
                         AppData.cur.start = shop;
                         $("#iptStart").val(shop.name);
@@ -408,8 +693,40 @@ var gis1 = {
 }
 
 gis1.initBaseMap();
-gis1.initShopData();
+//gis1.initShopData();
 
-lmap1.InitMap(appJson1, function () {
-    gis1.addShopLayer();
+lmap1.InitMap(appJson1, function () { 
+    if (AppConfig.isMult) { 
+        gis1.addShopLayer();
+    }
+    else {
+        gis1.getPointData();
+    }
 });
+
+function scapeClick_select(e) {
+    var id = e.graphic.attributes.id;
+    var shop = app.getShopById(id);
+    //debugger;
+    var popJson = {
+        x: shop.dx,
+        y: shop.dy,
+        title: "确定"
+    }
+    lmap1.ShowPopupMobile(popJson, function () {
+        $(".esriPopupMobile .titlePane").bind("click", function () {
+            if (AppData.cur.wait == "iptStart") {
+                AppData.cur.start = shop;
+                $("#iptStart").val(shop.name);
+            }
+            else {
+                AppData.cur.target = shop;
+                $("#iptEnd").val(shop.name);
+            }
+            $("#locateSelect").hide();
+            $("#routeInput").hide();
+            resetBtn();
+        })
+        
+    }); 
+}

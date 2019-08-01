@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <script src="assets/js/plugins/zepto/zepto.min.js"></script>
+    <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script>
+    <script src="lgis/lgis.js"></script> 
+    <style>
+        html,body,#map{
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="postion" style="position:absolute;bottom:10px;width:100%;">.......................</div>
+
+    <script>
+        var geolocation = new qq.maps.Geolocation("OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77", "myapp");
+        var lmap; 
+        var options = {
+            enableHighAccuracy: true,
+            maximumAge: 30000,
+            timeout: 12000
+        }
+
+        var appJson = {
+            //地图初始中心点
+            center: [116, 40],
+            //地图初始比例尺
+            scale: 50000000,
+            //地图初始缩放比例
+            zoom: 5,
+            //地图服务地址，esri在线地图：topo、streets、satellite、hybrid、gray、osm
+            basemap: "osm",
+            basemaps: [
+            {
+                layerId: "tdt1", layerTitle: "天地图-地图", layerType: "tiled",
+                imgUrl: "images/mapicon/gray.jpg",
+                layerUrl: "http://t0.tianditu.com/DataServer?T=vec_c&x={col}&y={row}&l={level}",
+                subDomains: ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
+                corsEnabledServers: ["t0.tianditu.com", "t1.tianditu.com", "t2.tianditu.com",
+                                     "t3.tianditu.com", "t4.tianditu.com", "t5.tianditu.com",
+                                     "t6.tianditu.com", "t7.tianditu.com", "t8.tianditu.com"]
+            },
+            {
+                layerId: "tdt2", layerTitle: "天地图-标注", layerType: "tiled",
+                imgUrl: "images/mapicon/gray.jpg",
+                layerUrl: "http://t0.tianditu.com/DataServer?T=cva_c&x={col}&y={row}&l={level}",
+                subDomains: ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
+                corsEnabledServers: ["t0.tianditu.com", "t1.tianditu.com", "t2.tianditu.com",
+                                     "t3.tianditu.com", "t4.tianditu.com", "t5.tianditu.com",
+                                     "t6.tianditu.com", "t7.tianditu.com", "t8.tianditu.com"]
+            }
+            ],
+            //地图容器
+            mapcontainer: "map",
+            maxZoom:20,
+            minZoom:0,
+        };
+        
+        function gisShowPosition(position){
+            var point = [{
+                "geometry": { "x": position.x, "y": position.y }
+            }]
+            var symbolJson = {
+                "type": "simple",
+                "symbol": {
+                    "url": "assets/images/maps/locate.png",
+                    "height": 20,
+                    "width": 20,
+                    "type": "esriPMS"
+                }
+            };
+            //图层参数构建
+            var graJson = {
+                gra: point,
+                map: {
+                    symbol: symbolJson
+                },
+                //popTemple: pTemplate,
+                //zoom: 2
+            };
+
+            lmap.LayerClear("locate_layer");
+            lmap.AddPoints("locate_layer", graJson);
+        }
+        
+
+        function getlocation(){
+            if (navigator.geolocation){ 
+                navigator.geolocation.getCurrentPosition(showPosition1,showError); 
+                navigator.geolocation.watchPosition(showPosition1);
+            }else{ 
+                alert("浏览器不支持地理定位。"); 
+            }   
+        }
+
+        function showPosition1(position){ 
+                var lat = position.coords.latitude; //纬度 
+                var lag = position.coords.longitude; //经度 
+                //alert('纬度:'+lat+',经度:'+lag+',方向：'+position.coords.heading);  
+                document.getElementById("postion").innerHTML='纬度:'+lat+',经度:'+lag+',方向：'+position.coords.heading;
+                gisShowPosition({
+                    x:lag,
+                    y:lat
+                })
+                //alert('纬度:'+lat+',经度:'+lag+',方向：'+position.coords.heading); 
+        }
+
+        function showPosition2(position){ 
+                var cs = gcj02towgs84(position.lng,position.lat);
+                var lat = cs[1]; //纬度 
+                var lag = cs[0]; //经度 
+                //alert('纬度:'+lat+',经度:'+lag+',方向：'+position.coords.heading);  
+                document.getElementById("postion").innerHTML='纬度:'+lat+',经度:'+lag+',方向：';
+                gisShowPosition({
+                    x:lag,
+                    y:lat
+                })
+                //alert('纬度:'+lat+',经度:'+lag+',方向：'+position.coords.heading); 
+        }
+
+        function showError(error){ 
+                switch(error.code) { 
+                case error.PERMISSION_DENIED: 
+                    alert("定位失败,用户拒绝请求地理定位"); 
+                    break; 
+                case error.POSITION_UNAVAILABLE: 
+                    alert("定位失败,位置信息是不可用"); 
+                    break; 
+                case error.TIMEOUT: 
+                    alert("定位失败,请求获取用户位置超时"); 
+                    break; 
+                case error.UNKNOWN_ERROR: 
+                    alert("定位失败,定位系统失效"); 
+                    break; 
+                } 
+        }
+ 
+        window.onload = function () {  
+
+            lmap = new Lgis();
+            lmap.InitMap(appJson, function () {
+                //地图加载完成后触发
+                console.log("地图加载完成！");
+                
+            });
+            setTimeout(() => { 
+                geolocation.watchPosition(showPosition2);
+                //lmap.layer.FeatureLayer("http://172.16.12.173:6080/arcgis/rest/services/zhushan/ZhuSMap/MapServer/2");
+                //getlocation(); 
+                //showPosition({x:116,y:40})
+            }, 2000);
+        }
+
+        
+    </script>
+    <script type="text/javascript"> 
+        var x_PI = 3.14159265358979324 * 3000.0 / 180.0;
+        var PI = 3.1415926535897932384626;
+        var a = 6378245.0;
+        var ee = 0.00669342162296594323;
+        function gcj02towgs84(lng, lat) { 
+        if (out_of_china(lng, lat)) {
+        return [lng, lat]
+        }
+        else {
+        var dlat = transformlat(lng - 105.0, lat - 35.0);
+        var dlng = transformlng(lng - 105.0, lat - 35.0);
+        var radlat = lat / 180.0 * PI;
+        var magic = Math.sin(radlat);
+        magic = 1 - ee * magic * magic;
+        var sqrtmagic = Math.sqrt(magic);
+        dlat = (dlat * 180.0) / ((a * (1 - ee)) / (magic * sqrtmagic) * PI);
+        dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
+        mglat = lat + dlat;
+        mglng = lng + dlng;
+        return [lng * 2 - mglng, lat * 2 - mglat]
+        }
+        }
+        function transformlat(lng, lat) { 
+        var ret = -100.0 + 2.0 * lng + 3.0 * lat + 0.2 * lat * lat + 0.1 * lng * lat + 0.2 * Math.sqrt(Math.abs(lng));
+        ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
+        ret += (20.0 * Math.sin(lat * PI) + 40.0 * Math.sin(lat / 3.0 * PI)) * 2.0 / 3.0;
+        ret += (160.0 * Math.sin(lat / 12.0 * PI) + 320 * Math.sin(lat * PI / 30.0)) * 2.0 / 3.0;
+        return ret
+        }
+        function transformlng(lng, lat) { 
+        var ret = 300.0 + lng + 2.0 * lat + 0.1 * lng * lng + 0.1 * lng * lat + 0.1 * Math.sqrt(Math.abs(lng));
+        ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
+        ret += (20.0 * Math.sin(lng * PI) + 40.0 * Math.sin(lng / 3.0 * PI)) * 2.0 / 3.0;
+        ret += (150.0 * Math.sin(lng / 12.0 * PI) + 300.0 * Math.sin(lng / 30.0 * PI)) * 2.0 / 3.0;
+        return ret
+        }
+        /**
+        * �ж��Ƿ��ڹ��ڣ����ڹ�������ƫ��
+        * @param lng
+        * @param lat
+        * @returns {boolean}
+        */
+        function out_of_china(lng, lat) { 
+        return (lng < 72.004 || lng > 137.8347) || ((lat < 0.8293 || lat > 55.8271) || false);
+        }
+    </script> 
+</body>
+</html>

@@ -1,11 +1,16 @@
-﻿body,html,#scene,#mapSelect{
+﻿body,html,#map,#mapSelect{
     width:100%;
     height:100%;
     margin:0px;
     padding:0px;
+    overflow: hidden;
 }
-#map_zoom_slider,.esriSimpleSlider {
-    display:none;
+#scene{
+    display: none;
+}
+.esriSimpleSliderBR {
+    bottom: 30% !important;
+    right: 10px !important; 
 }
 .sear_f_box {
     position:absolute !important;
@@ -80,10 +85,20 @@
     line-height:30px !important;
 }
 
-.esri-ui-bottom-right {
-    
+.esri-ui {
+    bottom: 100px !important;
 }
 
 .esri-attribution{
     display: none;
+}
+
+.mapTool li{
+    background: white; 
+    border-radius: 5px;
+    padding: 5px;
+    border: solid 1px #57585a;
+}
+.mapTool img{
+    width: 20px;
 }

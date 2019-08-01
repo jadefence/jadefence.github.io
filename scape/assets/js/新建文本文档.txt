@@ -1,2 +1,0 @@
-var routeUrl = "http://61.50.135.114:6080/arcgis/rest/services/PuNing/route_4/NAServer/Route"
-var basemapUrl = "http://61.50.135.114:6080/arcgis/rest/services/PuNing/PuNing4F/MapServer"

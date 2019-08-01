@@ -1,0 +1,84 @@
+.myInfoWindow {
+    position: absolute;
+    z-index: 100;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -moz-box-shadow: 0 0 1em #26393D;
+    border: 2px solid rgba(206, 205, 205, 0.25);
+    font-family: sans-serif;
+    font-size: 12px;
+    background-color: #ffffff;
+}
+
+.dj_ie .myInfoWindow {
+    border: 1px solid black;
+    box-shadow: 0 0 0.75em #777777;
+    -webkit-box-shadow: 0 0 0.75em #777777;
+}
+
+.myInfoWindow .content {
+    position: relative;
+    background-color: #FFFFFF;
+    color: #002F2F;
+    overflow: auto;
+    padding: 2px 2px 2px 2px;
+    /*display:none;*/
+}
+
+.myInfoWindow .close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    /*arcgis js api包里有此图片 */
+    background: url(https://serverapi.arcgisonline.com/jsapi/arcgis/2.6/js/dojo/dijit/themes/claro/layout/images/tabClose.png) no-repeat scroll 0 0 transparent;
+    width: 12px;
+    height: 12px;
+    margin: 3px 3px 0px 0px;
+    /*display:none;*/
+}
+
+    .myInfoWindow .close:hover, .myInfoWindow .toggleOpen:hover, .myInfoWindow .toggleClose:hover {
+        background-color: #F7FCFF;
+        /*display:none;*/
+    }
+
+.myInfoWindow .toggleOpen {
+    position: absolute;
+    top: 0px;
+    right: 12px;
+    cursor: pointer;
+    /*arcgis js api包里有此图片 */
+    background: url(https://serverapi.arcgisonline.com/jsapi/arcgis/2.6/js/dojo/dijit/themes/claro/form/images/buttonArrows.png);
+    background-position: -51px 53%;
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+    margin: 3px 3px 0px 0px;
+    /*display:none;*/
+}
+
+.myInfoWindow .toggleClose {
+    position: absolute;
+    top: 0px;
+    right: 12px;
+    cursor: pointer;
+    /*arcgis js api包里有此图片 */
+    background: url(https://serverapi.arcgisonline.com/jsapi/arcgis/2.6/js/dojo/dijit/themes/claro/form/images/buttonArrows.png);
+    background-position: 0px 53%;
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+    margin: 3px 3px 0px 0px;
+    /*display:none;*/
+}
+
+
+.myInfoWindow .title {
+    font-weight: bold;
+    padding: 2px 2px 2px 2px;
+    background-color: #FFFFFF;
+    color: #000000;
+}
