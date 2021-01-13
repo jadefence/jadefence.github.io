@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Hello, World</title>
+    <style type="text/css">
+        html {
+            height: 100%
+        }
+
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+
+        #container {
+            height: 100%
+        }
+    </style>
+    <script type="text/javascript"
+        src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=aBTHDOqunO4sDYDc0ALZlk0poKnecy6O">
+    </script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/javascript">
+        var schools = [];
+        var center = [116.278806, 40.048504]
+        var iconUrl = "https://webapi.amap.com/theme/v1.3/markers/n/mark_rs.png"
+        var lines = {
+            1: [
+                center, [116.306907, 40.057147]
+            ],
+            '2西二旗地铁': [
+                center, [116.307163, 40.056498]
+            ],
+            '5安河桥北地铁': [
+                center,
+                [116.278216, 40.039448], //马连洼
+                [116.276432, 40.018657]
+            ],
+            '6西北旺地铁': [
+                center, [116.264078, 40.055297]
+            ],
+            '8生命科学园': [
+                center, [116.281087, 40.072416],
+                [116.274467, 40.085072],
+                [116.294952, 40.102073],
+            ],
+            '9回龙观地铁': [
+                center, [116.342667, 40.076423]
+            ],
+            '23夜': [
+                center,
+                [116.307049, 40.061695],
+                [116.315718, 40.068566], // 回龙观新村
+                [116.326314, 40.07706], // 龙泽地铁
+                [116.33235, 40.076968], // 龙泽苑
+                [116.341472, 40.07682], // 回龙观地铁
+                [116.338995, 40.091139], // 云趣园
+                [116.352294, 40.092219], // 龙回苑
+                [116.366501, 40.092781], // 和谐家园
+            ],
+        }
+        var homes = [
+            [116.351306, 40.072466, 5000, '龙博苑三区'],
+            [116.348908, 40.074679, 5000, '龙博苑三区'],
+            [116.317653, 40.057404, 5700, '智学苑'],
+            [116.320488, 40.063769, 6000, '博雅德园'],
+            [116.320879, 40.05773, 5400, '铭科苑'],
+            [116.320879, 40.05773, 6300, '润千秋佳苑'],
+            [116.19766, 40.049327, 3800, '温泉人家'],
+            [116.297094, 40.039585, 5700, '马连洼菊园'],
+            [116.297462, 40.032161, 5300, '万树园'],
+            [116.285532, 40.038321, 6300, '西山华府 '],
+            [116.271715, 40.058096, 6000, '夏霖园'],
+            [116.274249, 40.058331, 5800, '春晖园'],
+            [116.261085, 40.053675, 8000, '百旺茉莉园'],
+            [116.272058, 40.055488, 5700, '景和园'],
+            [116.327966, 40.078314, 4500, '龙泽苑西区'],
+            [116.329807, 40.074477, 5500, '新龙城'],
+            [116.331191, 40.074767, 4800, '新龙城'],
+            [116.343179, 40.093035, 4300, '流星花园二区'],
+            [116.320204, 40.086282, 5200, '国仕汇 '],
+            [116.380984, 40.090024, 4700, '龙锦苑四区 '],
+            [116.363373, 40.069863, 4800, '知本时代 '],
+            [116.356916, 40.070828, 4900, '新康园'],
+            [116.351722, 40.063159, 4500, '育新花园'],
+            [116.361643, 40.069052, 4300, '建材城西二里'],
+            [116.311196, 40.103976, 5300, '领秀慧谷A区'],
+            [116.322938, 40.11017, 6000, 'TBD住总万科天地'],
+            [116.26525, 40.168921, 2600, '北街家园-七区']
+        ]
+
+        var map = new BMapGL.Map("container");
+        var centerPoint = new BMapGL.Point(...center);
+        map.centerAndZoom(centerPoint, 14);
+        map.enableScrollWheelZoom();
+
+        var myIcon = new BMapGL.Icon(iconUrl, new BMapGL.Size(23, 40), {});
+        // 创建标注对象并添加到地图  
+        var marker = new BMapGL.Marker(centerPoint, {
+            icon: myIcon
+        });
+        map.addOverlay(marker);
+
+        homes.forEach(home => {
+            var label = new BMapGL.Label(home[2], {
+                position: new BMapGL.Point(home[0], home[1])
+            });
+            label.setStyle({
+                backgroundColor: "#ffff00",
+            })
+            map.addOverlay(label);
+        });
+
+        for (const key in lines) {
+            var coords = lines[key];
+            var points = [];
+            coords.forEach(coord => {
+                var point = new BMapGL.Point(...coord)
+                points.push(point)
+                var circle = new BMapGL.Circle(point, 20, {
+                    fillColor: '#fff',
+                    strokeColor: 'red'
+                });
+                map.addOverlay(circle);
+            });
+            var label = new BMapGL.Label(key, {
+                position: points[points.length - 1]
+            });
+            map.addOverlay(label);
+            var polyline = new BMapGL.Polyline(points, {
+                strokeColor: "red",
+                strokeWeight: 2
+            });
+            map.addOverlay(polyline);
+        }
+
+        map.addEventListener('moveend', function () {
+            schools.forEach(s => {
+                map.removeOverlay(s)
+            })
+            searchXiao()
+            searchYou();
+        })
+        map.addEventListener('zoomend', function () {
+            schools.forEach(s => {
+                map.removeOverlay(s)
+            })
+            searchXiao()
+            searchYou();
+        })
+
+
+
+        function searchYou() {
+            var local = new BMapGL.LocalSearch(map, {
+                pageCapacity: 100,
+                onSearchComplete: function (e) {
+                    e._pois.forEach(poi => {
+                        var label = new BMapGL.Label('幼', {
+                            position: poi.point
+                        });
+                        label.setStyle({
+                            backgroundColor: "#e46839",
+                            color: "white",
+                        })
+                        schools.push(label)
+                        map.addOverlay(label);
+                    })
+
+                }
+            });
+            local.searchInBounds("幼儿园", map.getBounds());
+        }
+
+        function searchXiao() {
+            var local = new BMapGL.LocalSearch(map, {
+                pageCapacity: 100,
+                onSearchComplete: function (e) {
+                    e._pois.forEach(poi => {
+                        var myIcon = new BMapGL.Icon('you.png', new BMapGL.Size(23, 40), {});
+                        var label = new BMapGL.Label('小', {
+                            position: poi.point
+                        });
+                        label.setStyle({
+                            backgroundColor: "rgb(38 116 212)",
+                            color: "white",
+                        })
+                        schools.push(label)
+                        map.addOverlay(label);
+                    })
+
+                }
+            });
+            local.searchInBounds("小学", map.getBounds());
+        }
+    </script>
+</body>
+
+</html>
